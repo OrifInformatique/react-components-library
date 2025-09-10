@@ -22,3 +22,9 @@ export const NotRequired = () => (
   </Label>
 );
 
+
+export const Disabled = () => (
+  <Label htmlFor="file" disabled>
+    <Label.Title>Label</Label.Title>
+  </Label>
+);

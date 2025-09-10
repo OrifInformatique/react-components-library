@@ -1,15 +1,6 @@
-/** @type { import('@storybook/react').Preview } */
-import "../src/index.pcss";
+// .storybook/preview.js
+import "../src/styles/tailwind.css";
 
-const preview = {
-  parameters: {
-    controls: {
-      matchers: {
-       color: /(background|color)$/i,
-       date: /Date$/i,
-      },
-    },
-  },
+export const parameters = {
+  controls: { expanded: true },
 };
-
-export default preview;

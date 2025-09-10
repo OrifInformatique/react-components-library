@@ -1,4 +1,5 @@
 import Header from "./Header";
+import { fn } from "@storybook/test";
 
 export default {
     title: "Components/UI/Header",

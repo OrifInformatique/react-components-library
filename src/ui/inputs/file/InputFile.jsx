@@ -28,14 +28,24 @@ const InputFile = ({
         <Label htmlFor={id} required={required}>
             <Label.Title>{label}</Label.Title>
             <input
-                type="file"
-                id={id}
-                name={name}
-                accept={accept}
-                onChange={handleFileChange}
-                disabled={disabled}
-                required={required}
-            />
+            type="file"
+            id={id}
+            name={name}
+            accept={accept}
+            onChange={handleFileChange}
+            disabled={disabled}
+            required={required}
+            className="
+                file:cursor-pointer
+                file:rounded-md
+                file:border file:border-primary
+                file:px-4 file:py-2
+                file:text-primary file:bg-transparent
+                hover:file:bg-primary hover:file:text-white
+                focus:file:outline-none focus:file:ring-2 focus:file:ring-primary/30
+                disabled:file:opacity-50 disabled:file:cursor-not-allowed
+            "
+/>
         </Label>
     );
 }

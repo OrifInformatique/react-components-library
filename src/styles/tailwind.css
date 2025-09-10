@@ -1,16 +1,13 @@
 @import "tailwindcss";
-/* plugin forms (équivalent de plugins: [require('@tailwindcss/forms')]) */
 @plugin "@tailwindcss/forms";
 
-/* équivalent de theme.extend.colors + theme.extend.fontFamily */
+/* Thème de TON projet (noms strictement identiques) */
 @theme {
-  --color-primary: #005ba9;
+  --color-primary:    #005ba9;
   --color-background: #f4f7fd;
-  --color-disabled: #e7e7e7;
-  --color-danger: #b91c1c;
+  --color-disabled:   #e7e7e7;
+  --color-danger:     #b91c1c;
 
-  /* équivalent de fontFamily.display: ['Montserrat', 'sans-serif'] */
   --font-display: "Montserrat", sans-serif;
 }
 
-/* (pas d’autres styles, pas d’assets, rien d’opinionné) */

@@ -1,34 +1,20 @@
-import React, { useState } from "react";
+// src/ui/inputs/color-change/ColorChange.stories.js
 import ColorChange from "./ColorChange";
-import InputText from "../text/InputText";
 
-export default {
+const meta = {
   title: "Components/UI/ColorChange",
   component: ColorChange,
   tags: ["autodocs"],
-  parameters: {
-    layout: "fullscreen"
-  }
+  parameters: { layout: "centered" },
 };
+export default meta;
 
-export const Exemple = () => {
-  const [color, setColor] = useState("#005ba9");
-
-  return (
-    <div className="p-4 max-w-sm">
-    <ColorChange
-      label="Choisir une couleur"
-      defaultColor={color}
-      required={true} 
-      onChange={(newColor) => setColor(newColor)}
-      >
-        <InputText
-          id="example-text"
-          name="example"
-          label="Nom de la couleur"
-          required
-        />
-      </ColorChange>
-    </div>
-  );
+export const Example = {           // <-- OK, car title différent de PopUp
+  args: {
+    id: "color-change",
+    label: "Choose a color",
+    color: "#005ba9",
+    required: false,
+    disabled: false,
+  },
 };

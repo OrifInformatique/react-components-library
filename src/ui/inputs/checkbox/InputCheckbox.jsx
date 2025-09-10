@@ -13,6 +13,8 @@ const InputCheckbox = ({
     options.filter((o) => o.defaultChecked).map((o) => o.id)
   );
 
+  if (allDisabled) required = false;
+
   const labelRefs = useRef([]);
 
   const [longestLabelWidth, setLongestLabelWidth] = useState(0);
@@ -45,7 +47,6 @@ const InputCheckbox = ({
               name,
               label,
               disabled = false,
-              required = false,
               defaultChecked = false,
               labelPosition = "right",
             },
@@ -85,7 +86,6 @@ const InputCheckbox = ({
                   name={name}
                   defaultChecked={defaultChecked}
                   disabled={isDisabled}
-                  required={required}
                   onChange={(e) =>
                     handleCheckboxChange(id, e.target.checked)
                   }
@@ -121,7 +121,6 @@ InputCheckbox.propTypes = {
       name: PropTypes.string.isRequired,
       label: PropTypes.string.isRequired,
       disabled: PropTypes.bool,
-      required: PropTypes.bool,
       defaultChecked: PropTypes.bool,
       labelPosition: PropTypes.oneOf(["left", "right"]),
     })
@@ -129,6 +128,7 @@ InputCheckbox.propTypes = {
   onChange: PropTypes.func,
   allDisabled: PropTypes.bool,
   label: PropTypes.string,
+  required: PropTypes.bool,
 };
 
 export default InputCheckbox;

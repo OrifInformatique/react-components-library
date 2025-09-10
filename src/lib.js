@@ -1,4 +1,5 @@
-import "./styles/tailwind.css";
+import './styles/tailwind.css';
+
 // Layouts
 export { default as MainLayout } from './layouts/MainLayout';
 
@@ -18,7 +19,9 @@ export { default as ChangePassword } from './ui/auth/change-password';
 export { default as ResetPassword } from './ui/auth/reset-password';
 
 // Buttons
-export { default as DefaultButton } from './ui/buttons/default/Button';
+export { default as Page } from "./layouts/MainLayout.jsx";  
+export { default as DefaultButton } from "./ui/buttons/default/Button.jsx";   // <— alias
+export { default as Button } from "./ui/buttons/default/Button.jsx"; // <— alias
 export { default as ScrollToTopButton } from './ui/buttons/scroll-to-top/ScrollToTopButton';
 
 // Footer
@@ -39,7 +42,6 @@ export { default as ColorChange } from './ui/inputs/color-change/ColorChange';
 export { default as InputDate } from './ui/inputs/date/InputDate';
 export { default as InputEmail } from './ui/inputs/email/InputEmail';
 export { default as InputFile } from './ui/inputs/file/InputFile';
-// Ajoute ici les autres inputs si besoin (hidden, image, multi-select, number, password, radio, search, single-select, text, textarea)
 
 // Label
 export { default as Label } from './ui/label/Label';
@@ -53,12 +55,6 @@ export { default as SnackBar } from './ui/snackbar/SnackBar';
 // UserMenu
 export { default as UserMenu } from './ui/user-menu/UserMenu';
 
-// ...existing code...
-// Utils
-// ...existing code...
-// Utils
-// ...existing code...
 export { default as Redirect } from './utils/Redirect';
 export * as fileUtils from './utils/fileUtils';
 export { useLocalStorage } from './utils/useLocalStorage';
-// ...existing code...

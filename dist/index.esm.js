@@ -3421,7 +3421,7 @@ const Icon = ({ name = "home", size = 12, color = "black" }) => {
 function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e)){var o=e.length;for(t=0;t<o;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f);}else for(f in e)e[f]&&(n&&(n+=" "),n+=f);return n}function clsx(){for(var e,t,f=0,n="",o=arguments.length;f<o;f++)(e=arguments[f])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}
 
 const Logo = ({ className }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { className: clsx("w-32 sm:w-56", className), src: "images/logo.svg" }) });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { className: clsx("w-32 sm:w-56", className), src: "../assets/images/logo.svg" }) });
 };
 
 const Button = ({
@@ -3625,7 +3625,7 @@ const ScrollToTopButton = () => {
 const MainLayout = () => {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Header, { title: "App title" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center font-medium text-4xl text-gray-500 h-96 bg-background", children: "C O N T E N T" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center font-medium text-4xl text-gray-500 h-96 bg-background" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ScrollToTopButton, { onClick: () => {
     } }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
@@ -3638,26 +3638,6 @@ const Link = ({ to, children, className }) => {
 
 const Title = ({ children, className }) => {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: clsx("text-2xl sm:text-5xl text-center font-light", className), children }) });
-};
-
-const Home$1 = () => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title, { className: "pt-4 sm:pt-6 ", children: "Section Informatique" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { className: "pt-4 sm:pt-6", to: "contact", children: "Contact" })
-  ] });
-};
-
-const Home = () => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Title, { className: "pt-4 sm:pt-6 ", children: "Orif Pomy" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "text-center pt-4 text-lg", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "Chem. du Mont-de-Brez 2" }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: "1405 Pomy" })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { className: "pt-4 sm:pt-6", to: "contact", children: "Home" })
-  ] });
 };
 
 const Image = ({
@@ -4567,49 +4547,5 @@ const Snackbar = ({
   );
 };
 
-const Redirect = ({ to }) => {
-  const navigate = useNavigate();
-  useEffect(() => {
-    navigate(to);
-  });
-};
-
-const formatBytes = (bytes) => {
-  if (bytes < 1e3) return bytes + "B";
-  if (bytes < 1e6) return (bytes / 1e3).toFixed(2) + " kB";
-  if (bytes < 1e9) return (bytes / 1e6).toFixed(2) + " MB";
-  else return (bytes / 1e9).toFixed(2) + " GB";
-};
-
-var fileUtils = /*#__PURE__*/Object.freeze({
-	__proto__: null,
-	formatBytes: formatBytes
-});
-
-const useLocalStorage = (keyName, defaultValue) => {
-  const [storedValue, setStoredValue] = useState(() => {
-    try {
-      const value = window.localStorage.getItem(keyName);
-      if (value) {
-        return JSON.parse(value);
-      } else {
-        window.localStorage.setItem(keyName, JSON.stringify(defaultValue));
-        return defaultValue;
-      }
-    } catch (err) {
-      return defaultValue;
-    }
-  });
-  const setValue = (newValue) => {
-    try {
-      window.localStorage.setItem(keyName, JSON.stringify(newValue));
-    } catch (err) {
-      console.log(err);
-    }
-    setStoredValue(newValue);
-  };
-  return [storedValue, setValue];
-};
-
-export { Azure, Button, ChangePassword, ColorChange, Home as Contact, Button as DefaultButton, Footer, Header, Home$1 as Home, Icon, Image, InputCheckbox, InputDate, InputEmail, InputFile, Label, Link, Login, Logo, MainLayout, MainLayout as Page, PopUp, Redirect, ResetPassword, ScrollToTopButton, Snackbar as SnackBar, Title, UserMenu, fileUtils, useLocalStorage };
+export { Azure, Button, ChangePassword, ColorChange, Button as DefaultButton, Footer, Header, Icon, Image, InputCheckbox, InputDate, InputEmail, InputFile, Label, Link, Login, Logo, MainLayout, MainLayout as Page, PopUp, ResetPassword, ScrollToTopButton, Snackbar as SnackBar, Title, UserMenu };
 //# sourceMappingURL=index.esm.js.map

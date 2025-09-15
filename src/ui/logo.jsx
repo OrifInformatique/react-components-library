@@ -4,7 +4,7 @@ import clsx from 'clsx'
 const Logo = ({ className }) => {
   return (
     <a href="/">
-      <img className={clsx("w-32 sm:w-56", className)} src="images/logo.svg" />
+      <img className={clsx("w-32 sm:w-56", className)} src="../assets/images/logo.svg" />
     </a>
   );
 }

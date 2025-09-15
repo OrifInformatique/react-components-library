@@ -3,9 +3,6 @@ import './styles/tailwind.css';
 // Layouts
 export { default as MainLayout } from './layouts/MainLayout';
 
-// Modules
-export { default as Home } from './modules/home';
-export { default as Contact } from './modules/contact';
 
 // UI
 export { default as Link } from './ui/link';
@@ -55,6 +52,4 @@ export { default as SnackBar } from './ui/snackbar/SnackBar';
 // UserMenu
 export { default as UserMenu } from './ui/user-menu/UserMenu';
 
-export { default as Redirect } from './utils/Redirect';
-export * as fileUtils from './utils/fileUtils';
-export { useLocalStorage } from './utils/useLocalStorage';
+

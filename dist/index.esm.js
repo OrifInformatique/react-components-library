@@ -3624,7 +3624,7 @@ const ScrollToTopButton = () => {
 
 const MainLayout = () => {
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Header, { title: "App title" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Header, { title: "" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center font-medium text-4xl text-gray-500 h-96 bg-background" }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(ScrollToTopButton, { onClick: () => {
     } }),

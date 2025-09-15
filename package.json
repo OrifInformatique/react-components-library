@@ -1,6 +1,6 @@
 {
-  "name": "react-components-library",
-  "version": "0.1.0",
+  "name": "@<librarykingkong>/library-test",
+  "version": "0.1.1",
   "private": false,
   "type": "module",
   "main": "dist/index.cjs.js",
@@ -12,8 +12,14 @@
     },
     "./styles.css": "./dist/styles.css"
   },
-  "sideEffects": ["*.css"],
-  "files": ["dist", "package.json", "README.md"],
+  "sideEffects": [
+    "*.css"
+  ],
+  "files": [
+    "dist",
+    "package.json",
+    "README.md"
+  ],
   "scripts": {
     "clean": "rimraf dist src/styles/dist || true",
     "build": "rollup -c",

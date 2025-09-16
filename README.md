@@ -82,7 +82,7 @@ function Example() {
 
 ---
 
-## 📦 Available Components
+## Available Components
 
 The library provides a set of reusable UI components and form inputs.  
 Below is the full list with a short description for each.

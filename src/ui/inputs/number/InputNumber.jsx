@@ -3,82 +3,85 @@ import PropTypes from "prop-types";
 import Label from "../../label/Label";
 
 const InputNumber = ({
-    id,
-    name,
-    label = null,
-    min = -Infinity,
-    max = Infinity,
-    value = null,
-    defaultValue = null,
-    onChangeFunction = null,
-    disabled = false,
-    required = false
+  id,
+  name,
+  label,
+  min = -Infinity,
+  max = Infinity,
+  value = null,
+  defaultValue = null,
+  onChangeFunction = null,
+  disabled = false,
+  required = false,
+  placeholder = ""
 }) => {
-    const [internalValue, setInternalValue] = useState(value ?? defaultValue ?? "");
+  const [internalValue, setInternalValue] = useState(
+    value ?? defaultValue ?? ""
+  );
 
-    if (disabled) required = false;
+  if (disabled) required = false;
 
-    const handleNumberChange = (event) => {
-        let inputValue = event.target.value;
+  const handleNumberChange = (event) => {
+    const rawValue = event.target.value;
 
-        if (inputValue === "") {
-            if(onChangeFunction)
-                onChangeFunction(min);
-
-            setInternalValue(min);
-            return;
-        }
-
-        const normalizedValue = inputValue.replace(/^0+(?!$)/, "");
-        const numericValue = Number(normalizedValue);
-
-        if (numericValue < min) {
-            if(onChangeFunction)
-                onChangeFunction(min);
-
-            setInternalValue(min);
-        } else if (numericValue > max) {
-            if(onChangeFunction)
-                onChangeFunction(max);
-
-            setInternalValue(max);
-        } else {
-            if(onChangeFunction)
-                onChangeFunction(normalizedValue);
-
-            setInternalValue(normalizedValue);
-        }
+    // Cas vide
+    if (rawValue === "") {
+      setInternalValue("");
+      onChangeFunction && onChangeFunction(null);
+      return;
     }
 
-    return (
-        <Label htmlFor={id} required={required}>
-            <Label.Title>{label}</Label.Title>
-            <input
-                className="rounded-md disabled:bg-disabled focus:ring-primary focus:border-primary w-fit"
-                type="number"
-                id={id}
-                name={name}
-                min={min}
-                max={max}
-                value={internalValue}
-                onChange={handleNumberChange}
-                disabled={disabled}
-            />
-        </Label>
-    );
-}
+    // Normalisation
+    const numericValue = Number(rawValue);
+
+    if (isNaN(numericValue)) {
+      return;
+    }
+
+    let finalValue = numericValue;
+
+    if (numericValue < min) {
+      finalValue = min;
+    } else if (numericValue > max) {
+      finalValue = max;
+    }
+
+    setInternalValue(finalValue);
+    onChangeFunction && onChangeFunction(finalValue);
+  };
+
+  return (
+    <Label htmlFor={id} required={required}>
+      <Label.Title>{label}</Label.Title>
+      <input
+        className="rounded-md disabled:bg-disabled focus:ring-primary focus:border-primary w-fit"
+        type="number"
+        id={id}
+        name={name}
+        min={min}
+        max={max}
+        value={internalValue}
+        onChange={handleNumberChange}
+        disabled={disabled}
+        required={required}
+        placeholder={placeholder}
+      />
+    </Label>
+  );
+};
 
 InputNumber.propTypes = {
-    id: PropTypes.string.isRequired,
-    name: PropTypes.string.isRequired,
-    label: PropTypes.string.isRequired,
-    min: PropTypes.number,
-    max: PropTypes.number,
-    value: PropTypes.number,
-    defaultValue: PropTypes.number,
-    onChangeFunction: PropTypes.func,
-    disabled: PropTypes.bool,
-    required: PropTypes.bool
-}
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onChangeFunction: PropTypes.func,
+  disabled: PropTypes.bool,
+  required: PropTypes.bool,
+  placeholder: PropTypes.string
+};
 
 export default InputNumber;

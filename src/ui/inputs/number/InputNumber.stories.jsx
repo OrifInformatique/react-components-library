@@ -7,6 +7,25 @@ export default {
     layout: "fullscreen"
 }
 
+export const Default = {
+  args: {
+    id: "quantity",
+    name: "quantity",
+    label: "Quantity",
+  },
+};
+
+export const WithMinMax = {
+  args: {
+    id: "age",
+    name: "age",
+    label: "Age",
+    min: 18,
+    max: 99,
+    defaultValue: 25,
+  },
+};
+
 export const LimitedValues = {
     args: {
         id: "number-1",

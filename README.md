@@ -31,7 +31,7 @@ They must be installed in the parent project:
 - `prop-types` `^15.8.1`
 
 Install them if missing:
-
+   
 ```bash
 npm install react react-dom clsx prop-types
 ```
@@ -89,12 +89,6 @@ Below is the full list with a short description for each.
 
 ---
 
-### **Auth**
-- **ChangePassword** – Form component to handle password reset/change flow.  
-- **Login** – Authentication form for user login.  
-- **ResetPassword** – UI for requesting and validating password reset.
-
----
 
 ### **Buttons**
 - **DefaultButton** – Standard button with multiple variants (`primary`, `secondary`, `tertiary`, `danger`).  
@@ -206,7 +200,7 @@ The Rollup build generates:
 - `dist/index.esm.js` → ESModule bundle  
 - `dist/styles.css` → compiled TailwindCSS styles  
 
-Only the `dist/` folder and metadata files are published.
+Only the metadata files are published.
 
 ---
 

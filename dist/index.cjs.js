@@ -3491,10 +3491,13 @@ const Button = ({
         return "white";
       case "secondary":
         return "primary";
+      // ⚠️ à valider avec Icon
       case "tertiary":
         return "black";
       case "danger":
         return "danger";
+      default:
+        return "black";
     }
   };
   const iconSize = (size2) => {
@@ -3505,6 +3508,8 @@ const Button = ({
         return "6";
       case "large":
         return "8";
+      default:
+        return "6";
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs(
@@ -3517,26 +3522,29 @@ const Button = ({
         buttonMode(variant),
         buttonSize(size)
       ].join(" "),
+      "aria-label": label || (icon ? icon : "button"),
       ...props,
       children: [
-        !label && icon && /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { name: icon, color: iconColor(variant), size: iconSize(size) }),
-        label && !icon && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: label }),
-        label && icon && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { name: icon, color: iconColor(variant), size: iconSize(size) }),
-          /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: hideTextOnMobile ? "hidden sm:inline" : "", children: label })
-        ] }),
-        !label && !icon && /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { size: iconSize(size) })
+        icon && /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { name: icon, color: iconColor(variant), size: iconSize(size) }),
+        label && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: hideTextOnMobile && icon ? "hidden sm:inline" : "", children: label })
       ]
     }
   );
 };
 Button.propTypes = {
   className: PropTypes.string,
-  variant: PropTypes.oneOf(["primary", "secondary", "tertiary", "danger"]),
+  variant: PropTypes.oneOf([
+    "primary",
+    "secondary",
+    "tertiary",
+    "link",
+    "danger"
+  ]),
   label: PropTypes.string,
   icon: PropTypes.string,
   size: PropTypes.oneOf(["small", "medium", "large"]),
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
+  hideTextOnMobile: PropTypes.bool
 };
 
 const ScrollToTopButton = () => {
@@ -3569,85 +3577,55 @@ const ScrollToTopButton = () => {
   );
 };
 
-const Footer = () => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center text-lg text-primary w-full border-t py-6 px-6", children: "\xA9 Orif 2025" });
+const Footer = ({ children }) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("footer", { className: "w-full border-t border-black py-6 px-6 flex justify-center items-center", children });
+};
+Footer.propTypes = {
+  children: PropTypes.node.isRequired
 };
 
-const UserMenu = ({
-  user = null,
-  setIsOpen,
-  onLogin = () => {
-  },
-  onLogout = () => {
-  }
+const Header = ({
+  title,
+  logo,
+  childElement = null,
+  userMenu = null,
+  className = ""
 }) => {
-  const ref = React3.useRef(null);
-  React3.useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [setIsOpen]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref, className: "absolute flex flex-col items-end gap-2 mt-4 right-2 top-full border bg-gray-100 p-4", children: user ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-      "Bonjour, ",
-      /* @__PURE__ */ jsxRuntimeExports.jsx("b", { children: user.name }),
-      " !"
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "flex flex-col items-end text-primary", children: [
-      user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: "Administration" }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: "Changer de mot de passe" }) })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { label: "Logout", icon: "logout", onClick: onLogout })
-  ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Vous n'\xEAtes pas connect\xE9" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { variant: "primary", label: "Login", icon: "login", onClick: onLogin })
-  ] }) });
-};
-UserMenu.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    role: PropTypes.oneOf(["admin", "user"]).isRequired
-  }),
-  setIsOpen: PropTypes.func.isRequired,
-  onLogin: PropTypes.func,
-  onLogout: PropTypes.func
-};
-
-const Header = ({ user = null, title, childElement = null }) => {
+  var _a;
   const [isOpen, setIsOpen] = React3.useState(false);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("header", { className: "border-b shadow-sm py-8 px-6", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative flex justify-between items-center", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, {}),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "absolute text-4xl left-1/2 transform -translate-x-1/2 center", children: title }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("header", { className: `border-b shadow-sm py-8 px-6 ${className}`, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative flex justify-between items-center", children: [
+    logo && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-shrink-0", children: logo }),
+    title && /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "absolute text-4xl left-1/2 transform -translate-x-1/2", children: title }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-x-4", children: [
       childElement,
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "a",
+      userMenu && /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
         {
-          href: "#",
-          onClick: (e) => {
-            e.preventDefault();
-            setIsOpen((prev) => !prev);
-          },
-          children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { name: "user" })
+          type: "button",
+          onClick: () => setIsOpen((prev) => !prev),
+          className: "focus:outline-none",
+          children: (_a = userMenu.icon) != null ? _a : "\u2630"
         }
       )
     ] }),
-    isOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(UserMenu, { user, setIsOpen })
+    isOpen && (userMenu == null ? void 0 : userMenu.content) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute right-0 mt-2", children: typeof userMenu.content === "function" ? userMenu.content({ close: () => setIsOpen(false) }) : userMenu.content })
   ] }) });
 };
 Header.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    role: PropTypes.oneOf(["admin", "user"]).isRequired
+  title: PropTypes.string,
+  logo: PropTypes.node,
+  // any JSX (e.g. <Logo />)
+  childElement: PropTypes.element,
+  userMenu: PropTypes.shape({
+    icon: PropTypes.node,
+    // button/icon to toggle menu
+    content: PropTypes.oneOfType([
+      PropTypes.node,
+      PropTypes.func
+      // allows passing a function with close callback
+    ])
   }),
-  title: PropTypes.string.isRequired,
-  childElement: PropTypes.element
+  className: PropTypes.string
 };
 
 const Image = ({
@@ -3708,23 +3686,31 @@ Label.propTypes = {
 
 const InputCheckbox = ({
   options = [],
+  value = void 0,
+  // contrôlé
   onChange = () => {
   },
   allDisabled = false,
-  label = "S\xE9lectionner une option",
+  label = null,
   required = false
 }) => {
   const [selectedIds, setSelectedIds] = React3.useState(
-    options.filter((o) => o.defaultChecked).map((o) => o.id)
+    value != null ? value : options.filter((o) => o.defaultChecked).map((o) => o.id)
   );
-  if (allDisabled) required = false;
   const labelRefs = React3.useRef([]);
   const [longestLabelWidth, setLongestLabelWidth] = React3.useState(0);
   const handleCheckboxChange = (id, isChecked) => {
     const updated = isChecked ? [...selectedIds, id] : selectedIds.filter((item) => item !== id);
-    setSelectedIds(updated);
+    if (value === void 0) {
+      setSelectedIds(updated);
+    }
     onChange(updated);
   };
+  React3.useEffect(() => {
+    if (value !== void 0) {
+      setSelectedIds(value);
+    }
+  }, [value]);
   React3.useEffect(() => {
     const widths = labelRefs.current.map((ref) => (ref == null ? void 0 : ref.offsetWidth) || 0);
     const maxWidth = Math.max(...widths);
@@ -3732,9 +3718,9 @@ const InputCheckbox = ({
       setLongestLabelWidth(maxWidth);
     }
   }, [options]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { required, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: options.map(
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { required: required && !allDisabled, children: [
+    label && /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", role: "group", children: options.map(
       ({
         id,
         name,
@@ -3745,65 +3731,59 @@ const InputCheckbox = ({
       }, index) => {
         const isLeft = labelPosition === "left";
         const isDisabled = allDisabled || disabled;
-        return /* @__PURE__ */ jsxRuntimeExports.jsxs(
-          "div",
-          {
-            className: "flex items-center",
-            children: [
-              isLeft && /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "span",
+        const isChecked = selectedIds.includes(id);
+        return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+          isLeft && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "span",
+            {
+              ref: (el) => labelRefs.current[index] = el,
+              className: "text-sm",
+              style: {
+                minWidth: `${longestLabelWidth}px`,
+                textAlign: "left",
+                marginRight: "0.5rem"
+              },
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "label",
                 {
-                  ref: (el) => labelRefs.current[index] = el,
-                  className: "text-sm",
-                  style: {
-                    minWidth: `${longestLabelWidth}px`,
-                    textAlign: "left",
-                    marginRight: "0.5rem"
-                  },
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "label",
-                    {
-                      htmlFor: id,
-                      className: "cursor-pointer w-full",
-                      style: { display: "block" },
-                      children: /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { unstyled: true, children: label2 })
-                    }
-                  )
-                }
-              ),
-              /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "input",
-                {
-                  className: "disabled:bg-disabled focus:border-primary disabled:hover:bg-disabled disabled:focus:outline-none disabled:cursor-not-allowed",
-                  type: "checkbox",
-                  id,
-                  name,
-                  defaultChecked,
-                  disabled: isDisabled,
-                  onChange: (e) => handleCheckboxChange(id, e.target.checked),
-                  style: { marginRight: isLeft ? 0 : "0.5rem" }
-                }
-              ),
-              !isLeft && /* @__PURE__ */ jsxRuntimeExports.jsx(
-                "span",
-                {
-                  ref: (el) => labelRefs.current[index] = el,
-                  className: "text-sm",
-                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-                    "label",
-                    {
-                      htmlFor: id,
-                      className: "cursor-pointer w-full",
-                      style: { display: "block" },
-                      children: /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { unstyled: true, children: label2 })
-                    }
-                  )
+                  htmlFor: id,
+                  className: "cursor-pointer w-full",
+                  style: { display: "block" },
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { unstyled: true, children: label2 })
                 }
               )
-            ]
-          },
-          id
-        );
+            }
+          ),
+          /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "input",
+            {
+              className: "disabled:bg-disabled focus:border-primary disabled:hover:bg-disabled disabled:focus:outline-none disabled:cursor-not-allowed",
+              type: "checkbox",
+              id,
+              name,
+              checked: isChecked,
+              disabled: isDisabled,
+              onChange: (e) => handleCheckboxChange(id, e.target.checked),
+              style: { marginRight: isLeft ? 0 : "0.5rem" }
+            }
+          ),
+          !isLeft && /* @__PURE__ */ jsxRuntimeExports.jsx(
+            "span",
+            {
+              ref: (el) => labelRefs.current[index] = el,
+              className: "text-sm",
+              children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "label",
+                {
+                  htmlFor: id,
+                  className: "cursor-pointer w-full",
+                  style: { display: "block" },
+                  children: /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { unstyled: true, children: label2 })
+                }
+              )
+            }
+          )
+        ] }, id);
       }
     ) })
   ] });
@@ -3819,6 +3799,8 @@ InputCheckbox.propTypes = {
       labelPosition: PropTypes.oneOf(["left", "right"])
     })
   ).isRequired,
+  value: PropTypes.arrayOf(PropTypes.string),
+  // mode contrôlé
   onChange: PropTypes.func,
   allDisabled: PropTypes.bool,
   label: PropTypes.string,
@@ -3826,10 +3808,12 @@ InputCheckbox.propTypes = {
 };
 
 const ColorChange = ({
-  label = "Couleur",
+  label,
   defaultColor = "#005ba9",
   onChange,
-  required = false
+  required = false,
+  prefix = "#"
+  // <-- nouveau, rend le "#" optionnel
 }) => {
   const [colorValue, setColorValue] = React3.useState(defaultColor);
   const [hexInputValue, setHexInputValue] = React3.useState(defaultColor.replace("#", ""));
@@ -3842,14 +3826,14 @@ const ColorChange = ({
   const handleHexColorChange = (e) => {
     const input = e.target.value;
     setHexInputValue(input);
-    const fullHex = `#${input}`;
+    const fullHex = `${prefix}${input}`;
     if (/^#[0-9A-Fa-f]{6}$/.test(fullHex)) {
       setColorValue(fullHex);
       onChange && onChange(fullHex);
     }
   };
   return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col space-y-2 max-w-full mx-auto", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { required, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }) }),
+    label && /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { required, children: /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }) }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center space-x-2", children: [
       /* @__PURE__ */ jsxRuntimeExports.jsx(
         "input",
@@ -3861,7 +3845,7 @@ const ColorChange = ({
         }
       ),
       /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center outline-none rounded px-0.5", children: [
-        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-black-500 text-bold px-1", children: "#" }),
+        prefix && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { className: "text-black-500 font-bold px-1", children: prefix }),
         /* @__PURE__ */ jsxRuntimeExports.jsx(
           "input",
           {
@@ -3880,7 +3864,9 @@ ColorChange.propTypes = {
   label: PropTypes.string,
   defaultColor: PropTypes.string,
   onChange: PropTypes.func,
-  required: PropTypes.bool
+  required: PropTypes.bool,
+  prefix: PropTypes.string
+  // <-- ajouté
 };
 
 const InputDate = ({
@@ -3928,13 +3914,13 @@ const InputEmail = ({
   label,
   value = null,
   defaultValue = null,
-  onChangeFunction = null,
+  onChange = null,
   disabled = false,
   placeholder = "",
   required = false
 }) => {
-  if (disabled) required = false;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
+  const isRequired = !disabled && required;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required: isRequired, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       "input",
@@ -3944,10 +3930,10 @@ const InputEmail = ({
         id,
         name,
         ...value !== null ? { value } : { defaultValue },
-        onChange: onChangeFunction,
+        onChange,
         disabled,
         placeholder,
-        required
+        required: isRequired
       }
     )
   ] });
@@ -3958,7 +3944,7 @@ InputEmail.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string,
   defaultValue: PropTypes.string,
-  onChangeFunction: PropTypes.func,
+  onChange: PropTypes.func,
   disabled: PropTypes.bool,
   placeholder: PropTypes.string,
   required: PropTypes.bool
@@ -3970,19 +3956,17 @@ const InputFile = ({
   label = null,
   accept = "",
   disabled = false,
-  required = false
+  required = false,
+  onChange = () => {
+  }
 }) => {
-  const [file, setFile] = React3.useState(null);
-  if (disabled) required = false;
+  const isRequired = !disabled && required;
   const handleFileChange = (event) => {
-    const selectedFile = event.target.files[0];
-    if (selectedFile) {
-      setFile(selectedFile);
-    } else {
-      setFile(null);
-    }
+    var _a;
+    const selectedFile = ((_a = event.target.files) == null ? void 0 : _a[0]) || null;
+    onChange(selectedFile);
   };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required: isRequired, children: [
     /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
     /* @__PURE__ */ jsxRuntimeExports.jsx(
       "input",
@@ -3993,8 +3977,8 @@ const InputFile = ({
         accept,
         onChange: handleFileChange,
         disabled,
-        required,
-        className: "\r\n                file:cursor-pointer\r\n                file:rounded-md\r\n                file:border file:border-primary\r\n                file:px-4 file:py-2\r\n                file:text-primary file:bg-transparent\r\n                hover:file:bg-primary hover:file:text-white\r\n                focus:file:outline-none focus:file:ring-2 focus:file:ring-primary/30\r\n                disabled:file:opacity-50 disabled:file:cursor-not-allowed\r\n            "
+        required: isRequired,
+        className: "\r\n          file:cursor-pointer\r\n          file:rounded-md\r\n          file:border file:border-primary\r\n          file:px-4 file:py-2\r\n          file:text-primary file:bg-transparent\r\n          hover:file:bg-primary hover:file:text-white\r\n          focus:file:outline-none focus:file:ring-2 focus:file:ring-primary/30\r\n          disabled:file:opacity-50 disabled:file:cursor-not-allowed\r\n        "
       }
     )
   ] });
@@ -4005,7 +3989,665 @@ InputFile.propTypes = {
   label: PropTypes.string,
   accept: PropTypes.string,
   disabled: PropTypes.bool,
+  required: PropTypes.bool,
+  onChange: PropTypes.func
+};
+
+const formatBytes = (bytes, decimals = 2) => {
+  if (bytes === 0) return "0 Bytes";
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ["Bytes", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+};
+const InputFileImage = ({
+  name,
+  imagePreviewSize = 300,
+  className = null,
+  accept = ["image/png", "image/jpg", "image/jpeg"],
+  labelText = "Upload or update image",
+  deleteButtonLabel = "Remove image",
+  onChange
+}) => {
+  const [isImageUploaded, setIsImageUploaded] = React3.useState(false);
+  const [imagePreviewSrc, setImagePreviewSrc] = React3.useState("");
+  const [imageName, setImageName] = React3.useState("");
+  const [imageSize, setImageSize] = React3.useState(0);
+  if (!name) {
+    console.error("InputFileImage must have a name.");
+    return null;
+  }
+  const handleFileUpload = (event) => {
+    const image = event.target.files[0];
+    if (!image) {
+      deleteUploadedFile();
+      return;
+    }
+    if (!accept.includes(image.type)) {
+      console.error("Invalid file type: ", image.type);
+      deleteUploadedFile();
+      return;
+    }
+    setImagePreviewSrc(URL.createObjectURL(image));
+    setImageName(image.name);
+    setImageSize(formatBytes(image.size));
+    setIsImageUploaded(true);
+    onChange && onChange(image);
+  };
+  const deleteUploadedFile = () => {
+    const input = document.getElementById(name);
+    if (input) input.value = "";
+    setImagePreviewSrc("");
+    setImageName("");
+    setImageSize(0);
+    setIsImageUploaded(false);
+    URL.revokeObjectURL(imagePreviewSrc);
+    onChange && onChange(null);
+  };
+  React3.useEffect(() => {
+    return () => {
+      if (isImageUploaded) URL.revokeObjectURL(imagePreviewSrc);
+    };
+  }, [imagePreviewSrc]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center mb-2", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Image, { src: imagePreviewSrc, size: imagePreviewSize }) }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
+      Button,
+      {
+        variant: "primary",
+        label: labelText,
+        onClick: () => {
+          var _a;
+          return (_a = document.getElementById(name)) == null ? void 0 : _a.click();
+        }
+      }
+    ) }),
+    isImageUploaded && /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "mt-2", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "flex justify-between text-sm", children: [
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: imageName }),
+        /* @__PURE__ */ jsxRuntimeExports.jsx("span", { children: imageSize })
+      ] }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        Button,
+        {
+          variant: "danger",
+          label: deleteButtonLabel,
+          onClick: deleteUploadedFile,
+          className: "mt-2"
+        }
+      )
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "input",
+      {
+        type: "file",
+        id: name,
+        name,
+        accept: accept.join(","),
+        onChange: handleFileUpload,
+        className: "hidden"
+      }
+    )
+  ] });
+};
+InputFileImage.propTypes = {
+  name: PropTypes.string.isRequired,
+  imagePreviewSize: PropTypes.number,
+  className: PropTypes.string,
+  accept: PropTypes.arrayOf(PropTypes.string),
+  labelText: PropTypes.string,
+  deleteButtonLabel: PropTypes.string,
+  onChange: PropTypes.func
+};
+
+const InputNumber = ({
+  id,
+  name,
+  label,
+  min = -Infinity,
+  max = Infinity,
+  value = null,
+  defaultValue = null,
+  onChangeFunction = null,
+  disabled = false,
+  required = false,
+  placeholder = ""
+}) => {
+  var _a;
+  const [internalValue, setInternalValue] = React3.useState(
+    (_a = value != null ? value : defaultValue) != null ? _a : ""
+  );
+  if (disabled) required = false;
+  const handleNumberChange = (event) => {
+    const rawValue = event.target.value;
+    if (rawValue === "") {
+      setInternalValue("");
+      onChangeFunction && onChangeFunction(null);
+      return;
+    }
+    const numericValue = Number(rawValue);
+    if (isNaN(numericValue)) {
+      return;
+    }
+    let finalValue = numericValue;
+    if (numericValue < min) {
+      finalValue = min;
+    } else if (numericValue > max) {
+      finalValue = max;
+    }
+    setInternalValue(finalValue);
+    onChangeFunction && onChangeFunction(finalValue);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "input",
+      {
+        className: "rounded-md disabled:bg-disabled focus:ring-primary focus:border-primary w-fit",
+        type: "number",
+        id,
+        name,
+        min,
+        max,
+        value: internalValue,
+        onChange: handleNumberChange,
+        disabled,
+        required,
+        placeholder
+      }
+    )
+  ] });
+};
+InputNumber.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  min: PropTypes.number,
+  max: PropTypes.number,
+  value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+  onChangeFunction: PropTypes.func,
+  disabled: PropTypes.bool,
+  required: PropTypes.bool,
+  placeholder: PropTypes.string
+};
+
+const InputPassword = ({
+  id,
+  name,
+  label,
+  value = null,
+  defaultValue = null,
+  onChangeFunction = null,
+  disabled = false,
+  placeholder = "",
+  required = false
+}) => {
+  const [showPassword, setShowPassword] = React3.useState(false);
+  if (disabled) required = false;
+  const togglePasswordVisibility = (e) => {
+    e.preventDefault();
+    setShowPassword((prev) => !prev);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative w-fit", children: [
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "input",
+        {
+          className: "rounded-md pr-10 w-full disabled:bg-disabled focus:ring-primary focus:border-primary",
+          type: showPassword ? "text" : "password",
+          id,
+          name,
+          ...value !== null ? { value } : { defaultValue },
+          onChange: onChangeFunction,
+          disabled,
+          placeholder,
+          required
+        }
+      ),
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "button",
+        {
+          type: "button",
+          className: "absolute right-2 top-1/2 -translate-y-1/2",
+          disabled,
+          onClick: togglePasswordVisibility,
+          "aria-label": showPassword ? "Masquer le mot de passe" : "Afficher le mot de passe",
+          children: showPassword ? /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { name: "eye-slash", size: "6" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { name: "eye", size: "6" })
+        }
+      )
+    ] })
+  ] });
+};
+InputPassword.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  defaultValue: PropTypes.string,
+  onChangeFunction: PropTypes.func,
+  disabled: PropTypes.bool,
+  placeholder: PropTypes.string,
   required: PropTypes.bool
+};
+
+const InputRadio = ({
+  options = [],
+  onChange = () => {
+  },
+  name,
+  disabledAll = false,
+  label = "Select an option",
+  required = false
+}) => {
+  var _a;
+  const [selectedId, setSelectedId] = React3.useState(
+    ((_a = options.find((o) => o.defaultChecked)) == null ? void 0 : _a.id) || ""
+  );
+  if (disabledAll) required = false;
+  const labelRefs = React3.useRef([]);
+  const [longestLabelWidth, setLongestLabelWidth] = React3.useState(0);
+  const handleRadioChange = (id) => {
+    setSelectedId(id);
+    onChange(id);
+  };
+  React3.useEffect(() => {
+    const widths = labelRefs.current.map((ref) => (ref == null ? void 0 : ref.offsetWidth) || 0);
+    const maxWidth = Math.max(...widths);
+    if (maxWidth > 0) {
+      setLongestLabelWidth(maxWidth);
+    }
+  }, [options]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { required, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-col gap-2", children: options.map(({ id, label: label2, disabled = false, labelPosition = "right" }, index) => {
+      const isLeft = labelPosition === "left";
+      const isDisabled = disabledAll || disabled;
+      return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center", children: [
+        isLeft && /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "span",
+          {
+            ref: (el) => labelRefs.current[index] = el,
+            className: "text-sm",
+            style: {
+              minWidth: `${longestLabelWidth}px`,
+              textAlign: "left",
+              marginRight: "0.5rem"
+            },
+            children: /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: id, className: "cursor-pointer w-full block", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { unstyled: true, children: label2 }) })
+          }
+        ),
+        /* @__PURE__ */ jsxRuntimeExports.jsx(
+          "input",
+          {
+            type: "radio",
+            id,
+            name,
+            checked: selectedId === id,
+            disabled: isDisabled,
+            onChange: () => handleRadioChange(id),
+            className: "disabled:bg-disabled focus:border-primary disabled:hover:bg-disabled disabled:focus:outline-none disabled:cursor-not-allowed",
+            style: { marginRight: isLeft ? 0 : "0.5rem" }
+          }
+        ),
+        !isLeft && /* @__PURE__ */ jsxRuntimeExports.jsx("span", { ref: (el) => labelRefs.current[index] = el, className: "text-sm", children: /* @__PURE__ */ jsxRuntimeExports.jsx("label", { htmlFor: id, className: "cursor-pointer w-full block", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { unstyled: true, children: label2 }) }) })
+      ] }, id);
+    }) })
+  ] });
+};
+InputRadio.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired,
+      disabled: PropTypes.bool,
+      defaultChecked: PropTypes.bool,
+      labelPosition: PropTypes.oneOf(["left", "right"])
+    })
+  ).isRequired,
+  onChange: PropTypes.func,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  disabledAll: PropTypes.bool,
+  required: PropTypes.bool
+};
+
+const InputSearch = ({
+  id,
+  name,
+  label,
+  value = null,
+  defaultValue = null,
+  onChangeFunction = null,
+  disabled = false,
+  placeholder = "",
+  required = false
+}) => {
+  if (disabled) required = false;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "input",
+      {
+        type: "search",
+        id,
+        name,
+        ...value !== null ? { value } : { defaultValue },
+        onChange: onChangeFunction,
+        disabled,
+        placeholder,
+        required,
+        className: "border px-2 py-1 rounded w-full max-w-sm disabled:bg-disabled focus:ring-primary focus:border-primary"
+      }
+    )
+  ] });
+};
+InputSearch.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  defaultValue: PropTypes.string,
+  onChangeFunction: PropTypes.func,
+  disabled: PropTypes.bool,
+  placeholder: PropTypes.string,
+  required: PropTypes.bool
+};
+
+const InputText = ({
+  id,
+  name,
+  label,
+  value = null,
+  defaultValue = null,
+  onChangeFunction = null,
+  disabled = false,
+  required = false,
+  placeholder = "",
+  errors = [],
+  className = ""
+}) => {
+  if (disabled) required = false;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "input",
+      {
+        className: clsx(
+          "rounded-md text-gray-800 disabled:bg-disabled focus:ring-primary focus:border-primary px-2 py-1",
+          errors.length > 0 && "border-2 border-solid border-red-500",
+          className
+        ),
+        type: "text",
+        id,
+        name,
+        placeholder,
+        ...value !== null ? { value } : { defaultValue },
+        onChange: onChangeFunction,
+        disabled,
+        required
+      }
+    ),
+    errors.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-red-600 mt-1", children: errors[0] })
+  ] });
+};
+InputText.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  defaultValue: PropTypes.string,
+  onChangeFunction: PropTypes.func,
+  disabled: PropTypes.bool,
+  required: PropTypes.bool,
+  placeholder: PropTypes.string,
+  errors: PropTypes.arrayOf(PropTypes.string),
+  className: PropTypes.string
+};
+
+const MultiSelect = ({
+  name,
+  options = [],
+  selectedValues = [],
+  defaultValues = [],
+  disabled = false,
+  onChangeFunction = null,
+  errors = [],
+  className = null,
+  emptyLabel = "None selected",
+  singleLabel = "selected",
+  multipleLabel = "selected"
+}) => {
+  if (!name) {
+    console.error("MultiSelect must have a name.");
+    return;
+  }
+  const [selectedCount, setSelectedCount] = React3.useState(0);
+  const [selectedOptions, setSelectedOptions] = React3.useState(defaultValues);
+  const [isOpen, setIsOpen] = React3.useState(false);
+  const isDisabled = disabled || options.length < 1;
+  const handleSelectedOptions = (value) => {
+    if (onChangeFunction) {
+      onChangeFunction(
+        (prev) => prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+      );
+    }
+    setSelectedOptions(
+      (prev) => prev.includes(value) ? prev.filter((v) => v !== value) : [...prev, value]
+    );
+  };
+  React3.useEffect(() => setSelectedCount(selectedOptions.length), [selectedOptions]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        onClick: () => {
+          if (!isDisabled) setIsOpen((prev) => !prev);
+        },
+        className: clsx(
+          "rounded-md w-full h-fit px-4 py-2 border border-gray-500 text-center select-none hover:cursor-pointer",
+          isDisabled ? "bg-stone-300 cursor-not-allowed" : "bg-background",
+          errors.length > 0 && "border-2 border-solid border-red-500",
+          className
+        ),
+        children: selectedCount > 0 ? /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: `${selectedCount} ${selectedCount > 1 ? multipleLabel : singleLabel}` }) : /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: emptyLabel })
+      }
+    ),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "div",
+      {
+        id: `${name}-multiselect`,
+        className: `${!isOpen && "!hidden"} block absolute border border-blue min-w-max w-full py-2 space-y-2 rounded-md z-50 bg-white`,
+        onClick: (e) => e.stopPropagation(),
+        children: options.map((option, index) => /* @__PURE__ */ jsxRuntimeExports.jsxs(
+          "div",
+          {
+            className: "space-x-2 w-full px-2 select-none",
+            children: [
+              /* @__PURE__ */ jsxRuntimeExports.jsx(
+                "input",
+                {
+                  id: `${name}-${index}`,
+                  name: `${name}-${index}`,
+                  type: "checkbox",
+                  value: option,
+                  ...onChangeFunction !== null ? { checked: selectedValues.includes(option) } : { defaultChecked: defaultValues.includes(option) },
+                  onChange: () => handleSelectedOptions(option),
+                  className: "rounded-sm hover:cursor-pointer"
+                }
+              ),
+              /* @__PURE__ */ jsxRuntimeExports.jsx(Label, { forInput: `${name}-${index}`, children: option })
+            ]
+          },
+          `${name}-${index}`
+        ))
+      }
+    )
+  ] });
+};
+
+const SingleSelect = ({
+  id,
+  name,
+  label,
+  options = [],
+  selectedValue = null,
+  defaultValue = null,
+  disabled = false,
+  required = false,
+  placeholder = "Select an option...",
+  onChangeFunction = null,
+  errors = [],
+  className = null
+}) => {
+  if (!name) {
+    console.error("SingleSelect must have a name.");
+    return null;
+  }
+  const isDisabled = disabled || options.length < 1;
+  if (isDisabled) required = false;
+  const handleSingleSelect = (event) => {
+    if (onChangeFunction) onChangeFunction(event.target.value);
+  };
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id != null ? id : name, required, children: [
+    label && /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs(
+      "select",
+      {
+        id: id != null ? id : name,
+        name,
+        ...selectedValue !== null ? { value: selectedValue } : { defaultValue },
+        disabled: isDisabled,
+        required,
+        onChange: handleSingleSelect,
+        className: clsx(
+          "rounded-md w-full px-2 py-1 border focus:ring-primary focus:border-primary",
+          isDisabled ? "bg-stone-300 cursor-not-allowed" : "bg-background",
+          errors.length > 0 && "border-2 border-solid border-red-500",
+          className
+        ),
+        children: [
+          /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: "", disabled: true, hidden: true, children: placeholder }),
+          options.map((option) => /* @__PURE__ */ jsxRuntimeExports.jsx("option", { value: option.value, children: option.label }, option.value))
+        ]
+      }
+    ),
+    errors.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-red-600 mt-1", children: errors[0] })
+  ] });
+};
+SingleSelect.propTypes = {
+  id: PropTypes.string,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string,
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.string.isRequired,
+      label: PropTypes.string.isRequired
+    })
+  ).isRequired,
+  selectedValue: PropTypes.string,
+  defaultValue: PropTypes.string,
+  disabled: PropTypes.bool,
+  required: PropTypes.bool,
+  placeholder: PropTypes.string,
+  onChangeFunction: PropTypes.func,
+  errors: PropTypes.arrayOf(PropTypes.string),
+  className: PropTypes.string
+};
+
+const Textarea = ({
+  id,
+  name,
+  label,
+  placeholder = "",
+  value = null,
+  defaultValue = null,
+  rows = 4,
+  cols = null,
+  resizeX = true,
+  resizeY = true,
+  readonly = false,
+  disabled = false,
+  required = false,
+  onChangeFunction = null,
+  errors = [],
+  className = ""
+}) => {
+  if (disabled) required = false;
+  let resizeClass = "";
+  switch (true) {
+    case (resizeX && resizeY):
+      resizeClass = "resize";
+      break;
+    case (!resizeX && resizeY):
+      resizeClass = "resize-y";
+      break;
+    case (resizeX && !resizeY):
+      resizeClass = "resize-x";
+      break;
+    case (!resizeX && !resizeY):
+      resizeClass = "resize-none";
+      break;
+  }
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "textarea",
+      {
+        id,
+        name,
+        placeholder,
+        ...value !== null ? { value } : { defaultValue },
+        rows,
+        cols,
+        readOnly: readonly,
+        disabled,
+        required,
+        onChange: onChangeFunction,
+        className: clsx(
+          "rounded-md w-full px-2 py-1",
+          resizeClass,
+          disabled ? "bg-stone-300 cursor-not-allowed" : "bg-background",
+          errors.length > 0 && "border-2 border-red-500",
+          className
+        )
+      }
+    ),
+    errors.length > 0 && /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-sm text-red-600 mt-1", children: errors[0] })
+  ] });
+};
+Textarea.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  placeholder: PropTypes.string,
+  value: PropTypes.string,
+  defaultValue: PropTypes.string,
+  rows: PropTypes.number,
+  cols: PropTypes.number,
+  resizeX: PropTypes.bool,
+  resizeY: PropTypes.bool,
+  readonly: PropTypes.bool,
+  disabled: PropTypes.bool,
+  required: PropTypes.bool,
+  onChangeFunction: PropTypes.func,
+  errors: PropTypes.arrayOf(PropTypes.string),
+  className: PropTypes.string
+};
+
+const InputHidden = ({
+  id,
+  name,
+  value = null
+}) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("input", { id, name, type: "hidden", value });
+};
+InputHidden.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  value: PropTypes.string
 };
 
 const PopUp = ({ title, description, onClose, children }) => {
@@ -4131,6 +4773,52 @@ const Snackbar = ({
   );
 };
 
+const UserMenu = ({
+  user = null,
+  setIsOpen,
+  onLogin = () => {
+  },
+  onLogout = () => {
+  }
+}) => {
+  const ref = React3.useRef(null);
+  React3.useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setIsOpen]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref, className: "absolute flex flex-col items-end gap-2 mt-4 right-2 top-full border bg-gray-100 p-4", children: user ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+      "Bonjour, ",
+      /* @__PURE__ */ jsxRuntimeExports.jsx("b", { children: user.name }),
+      " !"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "flex flex-col items-end text-primary", children: [
+      user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: "Administration" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: "Changer de mot de passe" }) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { label: "Logout", icon: "logout", onClick: onLogout })
+  ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Vous n'\xEAtes pas connect\xE9" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { variant: "primary", label: "Login", icon: "login", onClick: onLogin })
+  ] }) });
+};
+UserMenu.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    role: PropTypes.oneOf(["admin", "user"]).isRequired
+  }),
+  setIsOpen: PropTypes.func.isRequired,
+  onLogin: PropTypes.func,
+  onLogout: PropTypes.func
+};
+
 exports.Button = Button;
 exports.ColorChange = ColorChange;
 exports.DefaultButton = Button;
@@ -4142,12 +4830,22 @@ exports.InputCheckbox = InputCheckbox;
 exports.InputDate = InputDate;
 exports.InputEmail = InputEmail;
 exports.InputFile = InputFile;
+exports.InputFileImage = InputFileImage;
+exports.InputHidden = InputHidden;
+exports.InputNumber = InputNumber;
+exports.InputPassword = InputPassword;
+exports.InputRadio = InputRadio;
+exports.InputSearch = InputSearch;
+exports.InputText = InputText;
 exports.Label = Label;
 exports.Link = Link;
 exports.Logo = Logo;
+exports.MultiSelect = MultiSelect;
 exports.PopUp = PopUp;
 exports.ScrollToTopButton = ScrollToTopButton;
+exports.SingleSelect = SingleSelect;
 exports.SnackBar = Snackbar;
+exports.Textarea = Textarea;
 exports.Title = Title;
 exports.UserMenu = UserMenu;
 //# sourceMappingURL=index.cjs.js.map

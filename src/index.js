@@ -30,6 +30,18 @@ export { default as ColorChange } from './ui/inputs/color-change/ColorChange';
 export { default as InputDate } from './ui/inputs/date/InputDate';
 export { default as InputEmail } from './ui/inputs/email/InputEmail';
 export { default as InputFile } from './ui/inputs/file/InputFile';
+export { default as InputFileImage } from "./ui/inputs/image/InputFileImage";
+export { default as InputNumber } from './ui/inputs/number/InputNumber';
+export { default as InputPassword } from './ui/inputs/password/InputPassword';
+export { default as InputRadio } from './ui/inputs/radio/InputRadio';
+export { default as InputSearch } from './ui/inputs/search/InputSearch';
+export { default as InputText } from './ui/inputs/text/InputText';
+export { default as MultiSelect } from './ui/inputs/multi-select/MultiSelect';
+export { default as SingleSelect } from './ui/inputs/single-select/SingleSelect';
+export { default as Textarea } from './ui/inputs/textarea/TextArea';
+export { default as InputHidden } from './ui/inputs/hidden/InputHidden';
+
+
 
 // Label
 export { default as Label } from './ui/label/Label';

@@ -1,21 +1,57 @@
+import React, { useState } from "react";
 import SingleSelect from "./SingleSelect";
 
-export default {
-    title: "Components/UI/SingleSelect",
-    component: SingleSelect,
-    tags: ["autodocs"],
-    layout: "fullscreen",
-    args: {
-        name: "singleselect",
-            options: [{
-                value: "option-1",
-                label: "Option 1"
-        },
-        {
-            value: "option-2",
-            label: "This is a sample text"
-        }]
-    }
-}
+const meta = {
+  title: "Components/UI/SingleSelect",
+  component: SingleSelect,
+  tags: ["autodocs"],
+  parameters: { layout: "left" },
+};
+export default meta;
 
-export const Default = {}
+const OPTIONS = [
+  { value: "apple", label: "Apple" },
+  { value: "banana", label: "Banana" },
+  { value: "cherry", label: "Cherry" },
+];
+
+export const Default = {
+  args: {
+    name: "fruit",
+    label: "Choose a fruit",
+    options: OPTIONS,
+  },
+};
+
+export const WithPlaceholder = {
+  args: {
+    name: "fruit",
+    label: "Select with placeholder",
+    options: OPTIONS,
+    placeholder: "Pick a fruit...",
+  },
+};
+
+export const Controlled = {
+  render: () => {
+    const [value, setValue] = useState("banana");
+    return (
+      <SingleSelect
+        name="controlled-fruit"
+        label="Controlled Select"
+        options={OPTIONS}
+        selectedValue={value}
+        onChangeFunction={(val) => setValue(val)}
+      />
+    );
+  },
+};
+
+export const Disabled = {
+  args: {
+    name: "fruit-disabled",
+    label: "Disabled select",
+    options: OPTIONS,
+    disabled: true,
+  },
+};

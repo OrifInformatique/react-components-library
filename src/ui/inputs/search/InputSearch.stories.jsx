@@ -1,24 +1,35 @@
+import React, { useState } from "react";
 import InputSearch from "./InputSearch";
 
-export default {
+const meta = {
   title: "Components/UI/InputSearch",
   component: InputSearch,
   tags: ["autodocs"],
-  layout: "fullscreen",
-  args: {
-    id: "search-1",
-    label: "Rechercher",
-  },
+  parameters: { layout: "left" },
 };
+export default meta;
 
 export const Default = {
   args: {
-    required: true, 
+    id: "search-default",
+    name: "search",
+    label: "Search",
+    placeholder: "Type to search...",
   },
 };
 
-export const Disabled = {
-  args: {
-    disabled: true,
+export const Controlled = {
+  render: () => {
+    const [query, setQuery] = useState("");
+    return (
+      <InputSearch
+        id="search-controlled"
+        name="search"
+        label="Search input"
+        value={query}
+        onChangeFunction={(e) => setQuery(e.target.value)}
+        placeholder="Controlled search..."
+      />
+    );
   },
 };

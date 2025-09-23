@@ -1,44 +1,54 @@
+import React, { useState } from "react";
 import InputText from "./InputText";
 
-export default {
-    title: "Components/UI/InputText",
-    component: InputText,
-    tags: ["autodocs"],
-    layout: "fullscreen",
-    args: { label: "Texte :" }
-}
+const meta = {
+  title: "Components/UI/InputText",
+  component: InputText,
+  tags: ["autodocs"],
+  parameters: { layout: "left" },
+};
+export default meta;
 
 export const Default = {
-    args: {
-        id: "text-1",
-        name: "text-1",
-        required: true
-    }
-}
+  args: {
+    id: "username",
+    name: "username",
+    label: "Username",
+    placeholder: "Enter your username"
+  },
+};
 
-export const Disabled = {
-    args: {
-        id: "text-2",
-        name: "text-2",
-        disabled: true,
-        required: false
-    }
-}
-
-export const Uncontrolled = {
-    args: {
-        id: "text-3",
-        name: "text-3",
-        defaultValue: "Example text.",
-        required: true
-    }
-}
+export const WithError = {
+  args: {
+    id: "email",
+    name: "email",
+    label: "Email",
+    placeholder: "Enter your email",
+    errors: ["Email is required"],
+  },
+};
 
 export const Controlled = {
-    args: {
-        id: "text-4",
-        name: "text-4",
-        value: "",
-        onChangeFunction: (text) => alert("The input contains \"" + text + "\".")
-    }
-}
+  render: () => {
+    const [value, setValue] = useState("Hello");
+    return (
+      <InputText
+        id="controlled"
+        name="controlled"
+        label="Controlled Input"
+        value={value}
+        onChangeFunction={(e) => setValue(e.target.value)}
+      />
+    );
+  },
+};
+
+export const Disabled = {
+  args: {
+    id: "disabled",
+    name: "disabled",
+    label: "Disabled input",
+    disabled: true,
+    defaultValue: "Can't edit this"
+  },
+};

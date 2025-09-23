@@ -1,162 +1,134 @@
 import React, { useState, useEffect } from "react";
-
+import PropTypes from "prop-types";
 import clsx from "clsx";
 
 import Button from "../../buttons/default/Button";
 import Image from "../../image/Image";
 import Label from "../../label/Label";
 
+const formatBytes = (bytes, decimals = 2) => {
+  if (bytes === 0) return "0 Bytes";
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ["Bytes", "KB", "MB", "GB"];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(dm)) + " " + sizes[i];
+};
 
-
-/**
- * UI component to display a image upload input.
- *
- * @param {string} name Name of the image upload input. Required.
- *
- * @param {number} [imagePreviewSize=300] Size of the image preview. 300 by default.
- *
- * @param {string[]} [errors=[]] Invalid value errors for this field. Empty array by default.
- *
- * @param {string} [className=null] Additional and specific styles for the image upload input. Null by default.
- *
- * @returns {JSX.Element}
- *
- */
 const InputFileImage = ({
-    name,
-    imagePreviewSize = 300,
-    className = null
-}) =>
-{
-    if(!name)
-    {
-        console.error("InputFileImage must have a name.");
-        return;
+  name,
+  imagePreviewSize = 300,
+  className = null,
+  accept = ["image/png", "image/jpg", "image/jpeg"],
+  labelText = "Upload or update image",
+  deleteButtonLabel = "Remove image",
+  onChange,
+}) => {
+  const [isImageUploaded, setIsImageUploaded] = useState(false);
+  const [imagePreviewSrc, setImagePreviewSrc] = useState("");
+  const [imageName, setImageName] = useState("");
+  const [imageSize, setImageSize] = useState(0);
+
+  if (!name) {
+    console.error("InputFileImage must have a name.");
+    return null;
+  }
+
+  const handleFileUpload = (event) => {
+    const image = event.target.files[0];
+
+    if (!image) {
+      deleteUploadedFile();
+      return;
     }
 
-    const allowedFileTypes = ["image/png", "image/jpg", "image/jpeg"];
-
-    const [isImageUploaded, setIsImageUploaded] = useState(false);
-    const [imagePreviewSrc, setImagePreviewSrc] = useState("");
-    const [imageName, setImageName] = useState("");
-    const [imageSize, setImageSize] = useState(0);
-
-    /**
-     * Handles image upload and updates the preview.
-     *
-     * Validates the selected file, ensures it matches allowed types, and updates
-     * the preview source. Deletes any previously uploaded image if no file is selected.
-     *
-     * @param {Event} event The file input change event.
-     *
-     * @returns {void}
-     *
-     */
-    const handleFileUpload = (event) =>
-    {
-        const image = event.target.files[0]
-
-        if(!image)
-        {
-            deleteUploadedFile();
-            return;
-        }
-
-        if(!allowedFileTypes.includes(image.type))
-        {
-            console.error("Invalid file type: ", image.type);
-            deleteUploadedFile();
-            return;
-        }
-
-        setImagePreviewSrc(URL.createObjectURL(image));
-
-        setImageName(image.name);
-        setImageSize(formatBytes(image.size));
-        setIsImageUploaded(true);
+    if (!accept.includes(image.type)) {
+      console.error("Invalid file type: ", image.type);
+      deleteUploadedFile();
+      return;
     }
 
-    /**
-     * Deletes the image preview.
-     *
-     * @returns {void}
-     *
-     */
-    const deleteUploadedFile = () =>
-    {
-        document.getElementById(name).value = "";
+    setImagePreviewSrc(URL.createObjectURL(image));
+    setImageName(image.name);
+    setImageSize(formatBytes(image.size));
+    setIsImageUploaded(true);
 
-        setImagePreviewSrc("");
-        setImageName("");
-        setImageSize(0);
-        setIsImageUploaded(false);
+    onChange && onChange(image);
+  };
 
-        URL.revokeObjectURL(imagePreviewSrc);
-    }
+  const deleteUploadedFile = () => {
+    const input = document.getElementById(name);
+    if (input) input.value = "";
 
-    /**
-     * Deletes the Blob object on unmount to prevent memory issues.
-     */
-    useEffect(() =>
-    {
-        return () =>
-        {
-            if(isImageUploaded)
-                URL.revokeObjectURL(imagePreviewSrc)
-        }
-    }, [imagePreviewSrc])
+    setImagePreviewSrc("");
+    setImageName("");
+    setImageSize(0);
+    setIsImageUploaded(false);
 
-    return (
-        <>
-            <div className={className}>
-                <div
-                    onClick={() => document.getElementById(name).click()}
-                    className="relative flex justify-center hover:cursor-pointer"
-                >
-                    <Image
-                        src={imagePreviewSrc}
-                        size={imagePreviewSize}
-                    />
+    URL.revokeObjectURL(imagePreviewSrc);
 
-                    <Label
-                        forInput={name}
-                        className={clsx(
-                            "absolute bottom-0 py-2 rounded-b-md bg-black/50 text-white text-center",
-                            `w-[${imagePreviewSize}px]`
-                        )}
-                    >
-                        Ajouter ou modifier une image
-                    </Label>
-                </div>
+    onChange && onChange(null);
+  };
 
-                {isImageUploaded &&
-                    <>
-                        <p className="flex justify-between">
-                            <span>{imageName}</span>
+  useEffect(() => {
+    return () => {
+      if (isImageUploaded) URL.revokeObjectURL(imagePreviewSrc);
+    };
+  }, [imagePreviewSrc]);
 
-                            <span>{imageSize}</span>
-                        </p>
+  return (
+    <div className={className}>
+      {/* Preview */}
+      <div className="flex justify-center mb-2">
+        <Image src={imagePreviewSrc} size={imagePreviewSize} />
+      </div>
 
-                        <Button
-                            variant="primary"
-                            label="Supprimer l'image"
-                            onClick={deleteUploadedFile}
-                            className={"mt-2 h-fit"}
-                        />
-                    </>
-                }
+      {/* Upload button */}
+      <div className="flex justify-center">
+        <Button
+          variant="primary"
+          label={labelText}
+          onClick={() => document.getElementById(name)?.click()}
+        />
+      </div>
 
-                <input
-                    type="file"
-                    id={name}
-                    name={name}
-                    accept={allowedFileTypes.join(",")}
-                    onChange={handleFileUpload}
-                    className={"hidden"}
-                />
-            </div>
-        </>
-    )
-}
+      {/* File info + delete */}
+      {isImageUploaded && (
+        <div className="mt-2">
+          <p className="flex justify-between text-sm">
+            <span>{imageName}</span>
+            <span>{imageSize}</span>
+          </p>
+          <Button
+            variant="danger"
+            label={deleteButtonLabel}
+            onClick={deleteUploadedFile}
+            className="mt-2"
+          />
+        </div>
+      )}
+
+      {/* Hidden input */}
+      <input
+        type="file"
+        id={name}
+        name={name}
+        accept={accept.join(",")}
+        onChange={handleFileUpload}
+        className="hidden"
+      />
+    </div>
+  );
+};
+
+InputFileImage.propTypes = {
+  name: PropTypes.string.isRequired,
+  imagePreviewSize: PropTypes.number,
+  className: PropTypes.string,
+  accept: PropTypes.arrayOf(PropTypes.string),
+  labelText: PropTypes.string,
+  deleteButtonLabel: PropTypes.string,
+  onChange: PropTypes.func,
+};
 
 export default InputFileImage;

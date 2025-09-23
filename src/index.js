@@ -1,22 +1,13 @@
 import './index.css';
 
-// Layouts
-export { default as MainLayout } from './layouts/MainLayout';
-
 
 // UI
 export { default as Link } from './ui/link';
 export { default as Logo } from './ui/logo';
 export { default as Title } from './ui/title';
 
-// Auth
-export { default as Login } from './ui/auth/login';
-export { default as Azure } from './ui/auth/login/azure';
-export { default as ChangePassword } from './ui/auth/change-password';
-export { default as ResetPassword } from './ui/auth/reset-password';
 
 // Buttons
-export { default as Page } from "./layouts/MainLayout.jsx";  
 export { default as DefaultButton } from "./ui/buttons/default/Button.jsx";   // <— alias
 export { default as Button } from "./ui/buttons/default/Button.jsx"; // <— alias
 export { default as ScrollToTopButton } from './ui/buttons/scroll-to-top/ScrollToTopButton';

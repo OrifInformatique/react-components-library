@@ -1,5 +1,5 @@
 import * as React3 from 'react';
-import React3__default, { useRef, useEffect, useState } from 'react';
+import React3__default, { useState, useEffect, useRef } from 'react';
 
 function getDefaultExportFromCjs (x) {
 	return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, 'default') ? x['default'] : x;
@@ -2153,8 +2153,18 @@ function useViewTransitionState(to, { relative } = {}) {
   return matchPath(path.pathname, nextPath) != null || matchPath(path.pathname, currentPath) != null;
 }
 
-const Footer = () => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center text-lg text-primary w-full border-t py-6 px-6", children: "\xA9 Orif 2025" });
+function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e)){var o=e.length;for(t=0;t<o;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f);}else for(f in e)e[f]&&(n&&(n+=" "),n+=f);return n}function clsx(){for(var e,t,f=0,n="",o=arguments.length;f<o;f++)(e=arguments[f])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}
+
+const Link = ({ to, children, className }) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link$1, { className: clsx("text-primary hover:underline focus:underline", className), to, children }) });
+};
+
+const Logo = ({ className }) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { className: clsx("w-32 sm:w-56", className), src: "../assets/images/logo.svg" }) });
+};
+
+const Title = ({ children, className }) => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: clsx("text-2xl sm:text-5xl text-center font-light", className), children }) });
 };
 
 var propTypes = {exports: {}};
@@ -3418,12 +3428,6 @@ const Icon = ({ name = "home", size = 12, color = "black" }) => {
   return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: iconSvg });
 };
 
-function r(e){var t,f,n="";if("string"==typeof e||"number"==typeof e)n+=e;else if("object"==typeof e)if(Array.isArray(e)){var o=e.length;for(t=0;t<o;t++)e[t]&&(f=r(e[t]))&&(n&&(n+=" "),n+=f);}else for(f in e)e[f]&&(n&&(n+=" "),n+=f);return n}function clsx(){for(var e,t,f=0,n="",o=arguments.length;f<o;f++)(e=arguments[f])&&(t=r(e))&&(n&&(n+=" "),n+=t);return n}
-
-const Logo = ({ className }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: /* @__PURE__ */ jsxRuntimeExports.jsx("img", { className: clsx("w-32 sm:w-56", className), src: "../assets/images/logo.svg" }) });
-};
-
 const Button = ({
   className = "",
   variant = "tertiary",
@@ -3515,6 +3519,40 @@ Button.propTypes = {
   onClick: PropTypes.func
 };
 
+const ScrollToTopButton = () => {
+  const [isVisible, setVisible] = useState(false);
+  useEffect(() => {
+    const toggleVisibility = () => {
+      if (window.scrollY > 200) {
+        setVisible(true);
+      } else {
+        setVisible(false);
+      }
+    };
+    window.addEventListener("scroll", toggleVisibility);
+    return () => window.removeEventListener("scroll", toggleVisibility);
+  }, []);
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  };
+  if (!isVisible) return null;
+  return /* @__PURE__ */ jsxRuntimeExports.jsx(
+    "button",
+    {
+      onClick: scrollToTop,
+      className: "fixed bottom-16 right-8 p-3 bg-primary bg-opacity-80 rounded-full transition duration-300 hover:bg-opacity-100 hover:scale-105",
+      children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "size-6 text-white", xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" }) })
+    }
+  );
+};
+
+const Footer = () => {
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex items-center text-lg text-primary w-full border-t py-6 px-6", children: "\xA9 Orif 2025" });
+};
+
 const UserMenu = ({
   user = null,
   setIsOpen,
@@ -3592,54 +3630,6 @@ Header.propTypes = {
   childElement: PropTypes.element
 };
 
-const ScrollToTopButton = () => {
-  const [isVisible, setVisible] = useState(false);
-  useEffect(() => {
-    const toggleVisibility = () => {
-      if (window.scrollY > 200) {
-        setVisible(true);
-      } else {
-        setVisible(false);
-      }
-    };
-    window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
-  }, []);
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  };
-  if (!isVisible) return null;
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(
-    "button",
-    {
-      onClick: scrollToTop,
-      className: "fixed bottom-16 right-8 p-3 bg-primary bg-opacity-80 rounded-full transition duration-300 hover:bg-opacity-100 hover:scale-105",
-      children: /* @__PURE__ */ jsxRuntimeExports.jsx("svg", { className: "size-6 text-white", xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", strokeWidth: 1.5, stroke: "currentColor", children: /* @__PURE__ */ jsxRuntimeExports.jsx("path", { strokeLinecap: "round", strokeLinejoin: "round", d: "M4.5 10.5 12 3m0 0 7.5 7.5M12 3v18" }) })
-    }
-  );
-};
-
-const MainLayout = () => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Header, { title: "" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex justify-center items-center font-medium text-4xl text-gray-500 h-96 bg-background" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(ScrollToTopButton, { onClick: () => {
-    } }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Footer, {})
-  ] });
-};
-
-const Link = ({ to, children, className }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link$1, { className: clsx("text-primary hover:underline focus:underline", className), to, children }) });
-};
-
-const Title = ({ children, className }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx(jsxRuntimeExports.Fragment, { children: /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: clsx("text-2xl sm:text-5xl text-center font-light", className), children }) });
-};
-
 const Image = ({
   src = null,
   alt = null,
@@ -3694,474 +3684,6 @@ Label.propTypes = {
   children: PropTypes.node.isRequired,
   required: PropTypes.bool,
   className: PropTypes.string
-};
-
-const InputText = ({
-  id,
-  name,
-  label,
-  value = null,
-  defaultValue = null,
-  onChangeFunction = null,
-  disabled = false,
-  required = false
-}) => {
-  var _a;
-  const [internalValue, setInternalValue] = useState((_a = value != null ? value : defaultValue) != null ? _a : "");
-  if (disabled) required = false;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "input",
-      {
-        className: "rounded-md text-gray-800 disabled:bg-disabled focus:ring-primary focus:border-primary w-fit",
-        type: "text",
-        id,
-        name,
-        ...value !== null ? { value } : { defaultValue },
-        onChange: onChangeFunction,
-        disabled
-      }
-    )
-  ] });
-};
-InputText.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  defaultValue: PropTypes.string,
-  onChangeFunction: PropTypes.func,
-  disabled: PropTypes.bool,
-  required: PropTypes.bool
-};
-
-const InputPassword = ({
-  id,
-  name,
-  label,
-  value = null,
-  defaultValue = null,
-  onChangeFunction = null,
-  disabled = false,
-  placeholder = "",
-  required = false
-}) => {
-  const [showPassword, setShowPassword] = useState(false);
-  if (disabled) required = false;
-  const togglePasswordVisibility = (e) => {
-    e.preventDefault();
-    setShowPassword((prev) => !prev);
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center w-fit", children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "input",
-        {
-          className: "rounded-md pr-10 w-full disabled:bg-disabled focus:ring-primary focus:border-primary w-fit",
-          type: showPassword ? "text" : "password",
-          id,
-          name,
-          ...value !== null ? { value } : { defaultValue },
-          onChange: onChangeFunction,
-          disabled,
-          placeholder,
-          required
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
-        {
-          className: "-ml-8",
-          disabled,
-          onClick: togglePasswordVisibility,
-          children: showPassword ? /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { name: "eye-slash", size: "6" }) : /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { name: "eye", size: "6" })
-        }
-      )
-    ] })
-  ] });
-};
-InputPassword.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  defaultValue: PropTypes.string,
-  onChangeFunction: PropTypes.func,
-  disabled: PropTypes.bool,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool
-};
-
-const Login = () => {
-  const [showLocalAccountLoginForm, setShowLocalAccountLoginForm] = useState(false);
-  const handleLoginFormSubmit = (e) => {
-    e.preventDefault();
-    console.log(handleLoginFormSubmit);
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap place-content-center text-center w-full h-full", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-4 w-full sm:w-[350px] h-fit p-8 border border-black sm:rounded-lg", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { children: "Connexion" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "mx-auto", children: /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/azure", children: /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Image,
-      {
-        src: "https://learn.microsoft.com/en-us/azure/active-directory/develop/media/howto-add-branding-in-apps/ms-symbollockup_signin_light.svg",
-        alt: "Connexion avec Microsoft Azure"
-      }
-    ) }) }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx("hr", { className: "border border-black" }),
-    showLocalAccountLoginForm ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "form",
-        {
-          onSubmit: handleLoginFormSubmit,
-          className: "flex flex-col gap-4",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              InputText,
-              {
-                id: "identifier",
-                name: "identifier",
-                label: "Identifiant",
-                required: true
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              InputPassword,
-              {
-                id: "password",
-                name: "password",
-                label: "Mot de passe",
-                required: true
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Button,
-              {
-                variant: "primary",
-                label: "Se connecter",
-                className: "w-full"
-              }
-            )
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(Link, { to: "/reset-password", children: "J'ai oubli\xE9 mon mot de passe" })
-    ] }) : /* @__PURE__ */ jsxRuntimeExports.jsx(
-      Button,
-      {
-        variant: "primary",
-        label: "Connexion avec un compte local",
-        onClick: () => setShowLocalAccountLoginForm(true)
-      }
-    )
-  ] }) });
-};
-
-const InputEmail = ({
-  id,
-  name,
-  label,
-  value = null,
-  defaultValue = null,
-  onChangeFunction = null,
-  disabled = false,
-  placeholder = "",
-  required = false
-}) => {
-  if (disabled) required = false;
-  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(
-      "input",
-      {
-        className: "rounded-md disabled:bg-disabled focus:ring-primary focus:border-primary w-fit",
-        type: "email",
-        id,
-        name,
-        ...value !== null ? { value } : { defaultValue },
-        onChange: onChangeFunction,
-        disabled,
-        placeholder,
-        required
-      }
-    )
-  ] });
-};
-InputEmail.propTypes = {
-  id: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  value: PropTypes.string,
-  defaultValue: PropTypes.string,
-  onChangeFunction: PropTypes.func,
-  disabled: PropTypes.bool,
-  placeholder: PropTypes.string,
-  required: PropTypes.bool
-};
-
-const Azure = () => {
-  const [formStep, setFormStep] = useState(1);
-  const handleAzureLinkEmailForm = (e) => {
-    e.preventDefault();
-    console.log(handleAzureLinkEmailForm);
-    sendVerificationCodeToEmail();
-    nextStep();
-  };
-  const handleAzureConfirmationCodeForm = (e) => {
-    e.preventDefault();
-    console.log(handleAzureConfirmationCodeForm);
-  };
-  const sendVerificationCodeToEmail = () => {
-    console.log(sendVerificationCodeToEmail);
-  };
-  const nextStep = () => setFormStep((prev) => prev + 1);
-  const prevStep = () => setFormStep((prev) => prev - 1);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap place-content-center text-center w-full h-full", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-4 w-full sm:w-[350px] h-fit p-8 border border-black sm:rounded-lg", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { children: "Authentification Azure" }),
-    formStep === 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsxs("p", { className: "text-left", children: [
-        "Vous utilisez la connexion Microsoft pour la premi\xE8re fois.",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("br", {}),
-        "Afin d'enregistrer votre compte, indiquez votre adresse e-mail se terminant par ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "@formation.orif.ch" }),
-        " ou ",
-        /* @__PURE__ */ jsxRuntimeExports.jsx("strong", { children: "@orif.ch" }),
-        "."
-      ] }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "form",
-        {
-          onSubmit: handleAzureLinkEmailForm,
-          className: "flex flex-col gap-4",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              InputEmail,
-              {
-                id: "email",
-                name: "email",
-                label: "Email",
-                placeholder: "example@orif.ch",
-                required: true
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Button,
-              {
-                variant: "primary",
-                label: "Envoyer le code",
-                className: "w-full"
-              }
-            )
-          ]
-        }
-      )
-    ] }),
-    formStep === 2 && /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-      /* @__PURE__ */ jsxRuntimeExports.jsx("p", { className: "text-left", children: "Un code de v\xE9rification a \xE9t\xE9 envoy\xE9 sur votre adresse e-mail. Entrez-le ci-dessous." }),
-      /* @__PURE__ */ jsxRuntimeExports.jsxs(
-        "form",
-        {
-          onSubmit: handleAzureConfirmationCodeForm,
-          className: "flex flex-col gap-4",
-          children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              InputText,
-              {
-                id: "code",
-                name: "code",
-                label: "Code de v\xE9rification",
-                required: true
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Button,
-              {
-                variant: "primary",
-                label: "Confirmer le code",
-                className: "w-full"
-              }
-            )
-          ]
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Button,
-        {
-          variant: "link",
-          label: "Envoyer un nouveau code",
-          className: "w-full",
-          onClick: () => sendVerificationCodeToEmail()
-        }
-      ),
-      /* @__PURE__ */ jsxRuntimeExports.jsx(
-        Button,
-        {
-          variant: "link",
-          label: "Changer l'adresse e-mail",
-          className: "w-full",
-          onClick: () => prevStep()
-        }
-      )
-    ] })
-  ] }) });
-};
-
-const ChangePassword = () => {
-  const handleChangePasswordFormSubmit = (e) => {
-    e.preventDefault();
-    console.log(handleChangePasswordFormSubmit);
-  };
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap place-content-center text-center w-full h-full", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-4 w-[300px] sm:w-[350px] h-fit p-4 sm:p-8 border border-black sm:rounded-lg", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { children: "Changement de mot de passe" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      "form",
-      {
-        onSubmit: handleChangePasswordFormSubmit,
-        className: "flex flex-col gap-4",
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            InputPassword,
-            {
-              id: "current-password",
-              name: "current-password",
-              label: "Mot de passe actuel",
-              required: true
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            InputPassword,
-            {
-              id: "new-password",
-              name: "new-password",
-              label: "Nouveau mot de passe",
-              required: true
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            InputPassword,
-            {
-              id: "new-password-confirmation",
-              name: "new-password-confirmation",
-              label: "Confirmation du nouveau mot de passe",
-              required: true
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 w-full", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Button,
-              {
-                variant: "tertiary",
-                label: "Annuler",
-                className: "basis-1/2"
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Button,
-              {
-                variant: "primary",
-                label: "Valider",
-                className: "basis-1/2"
-              }
-            )
-          ] })
-        ]
-      }
-    )
-  ] }) });
-};
-
-const ResetPassword = () => {
-  const [formStep, setFormStep] = useState(1);
-  const handleEmailForm = (e) => {
-    e.preventDefault();
-    console.log(handleEmailForm);
-    sendResetPasswordLinkToEmail();
-    nextStep();
-  };
-  const sendResetPasswordLinkToEmail = (e) => {
-    console.log(sendResetPasswordLinkToEmail);
-  };
-  const handleResetPasswordFormSubmit = (e) => {
-    e.preventDefault();
-    console.log(handleResetPasswordFormSubmit);
-  };
-  const nextStep = () => setFormStep((prev) => prev + 1);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex flex-wrap place-content-center text-center w-full h-full", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex flex-col gap-4 w-full sm:w-[350px] h-fit p-8 border border-black sm:rounded-lg", children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { children: "Restauration du mot de passe" }),
-    formStep === 1 && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      "form",
-      {
-        onSubmit: handleEmailForm,
-        className: "flex flex-col gap-4",
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            InputEmail,
-            {
-              id: "email",
-              name: "email",
-              label: "Email",
-              placeholder: "example@orif.ch",
-              required: true
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex gap-2 w-full", children: [
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Button,
-              {
-                variant: "tertiary",
-                label: "Annuler",
-                className: "basis-1/2"
-              }
-            ),
-            /* @__PURE__ */ jsxRuntimeExports.jsx(
-              Button,
-              {
-                variant: "primary",
-                label: "Valider",
-                className: "basis-1/2"
-              }
-            )
-          ] })
-        ]
-      }
-    ),
-    formStep === 2 && /* @__PURE__ */ jsxRuntimeExports.jsxs(
-      "form",
-      {
-        onSubmit: handleResetPasswordFormSubmit,
-        className: "flex flex-col gap-4",
-        children: [
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            InputPassword,
-            {
-              id: "new-password",
-              name: "new-password",
-              label: "Nouveau mot de passe",
-              required: true
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            InputPassword,
-            {
-              id: "new-password-confirmation",
-              name: "new-password-confirmation",
-              label: "Confirmation du nouveau mot de passe",
-              required: true
-            }
-          ),
-          /* @__PURE__ */ jsxRuntimeExports.jsx(
-            Button,
-            {
-              variant: "primary",
-              label: "Valider",
-              className: "w-full"
-            }
-          )
-        ]
-      }
-    )
-  ] }) });
 };
 
 const InputCheckbox = ({
@@ -4380,6 +3902,48 @@ InputDate.propTypes = {
   required: PropTypes.bool
 };
 
+const InputEmail = ({
+  id,
+  name,
+  label,
+  value = null,
+  defaultValue = null,
+  onChangeFunction = null,
+  disabled = false,
+  placeholder = "",
+  required = false
+}) => {
+  if (disabled) required = false;
+  return /* @__PURE__ */ jsxRuntimeExports.jsxs(Label, { htmlFor: id, required, children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Label.Title, { children: label }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(
+      "input",
+      {
+        className: "rounded-md disabled:bg-disabled focus:ring-primary focus:border-primary w-fit",
+        type: "email",
+        id,
+        name,
+        ...value !== null ? { value } : { defaultValue },
+        onChange: onChangeFunction,
+        disabled,
+        placeholder,
+        required
+      }
+    )
+  ] });
+};
+InputEmail.propTypes = {
+  id: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  label: PropTypes.string.isRequired,
+  value: PropTypes.string,
+  defaultValue: PropTypes.string,
+  onChangeFunction: PropTypes.func,
+  disabled: PropTypes.bool,
+  placeholder: PropTypes.string,
+  required: PropTypes.bool
+};
+
 const InputFile = ({
   id,
   name,
@@ -4547,5 +4111,5 @@ const Snackbar = ({
   );
 };
 
-export { Azure, Button, ChangePassword, ColorChange, Button as DefaultButton, Footer, Header, Icon, Image, InputCheckbox, InputDate, InputEmail, InputFile, Label, Link, Login, Logo, MainLayout, MainLayout as Page, PopUp, ResetPassword, ScrollToTopButton, Snackbar as SnackBar, Title, UserMenu };
+export { Button, ColorChange, Button as DefaultButton, Footer, Header, Icon, Image, InputCheckbox, InputDate, InputEmail, InputFile, Label, Link, Logo, PopUp, ScrollToTopButton, Snackbar as SnackBar, Title, UserMenu };
 //# sourceMappingURL=index.esm.js.map

@@ -1,36 +1,43 @@
 // .storybook/main.js
-import { mergeConfig } from 'vite';
-import react from '@vitejs/plugin-react';
+import { mergeConfig } from "vite";
+import react from "@vitejs/plugin-react";
 
 export default {
-  stories: ['../src/**/*.mdx','../src/**/*.stories.@(js|jsx|ts|tsx)'],
-  framework: '@storybook/react-vite',
+  stories: [
+    "../src/**/*.mdx",
+    "../src/**/*.stories.@(js|jsx|ts|tsx)"
+  ],
+  framework: "@storybook/react-vite",
   addons: [
-    '@storybook/addon-essentials',
-    '@storybook/addon-a11y',
-    '@storybook/addon-interactions'
+    "@storybook/addon-essentials",
+    "@storybook/addon-a11y",
+    "@storybook/addon-interactions"
   ],
   docs: { autodocs: true },
+
   async viteFinal(config) {
-    // 1) forcer le loader JSX pour .js
-    config.esbuild ||= {};
-    config.esbuild.loader = { '.js': 'jsx', ...(config.esbuild.loader || {}) };
+    // S'assurer que esbuild traite les fichiers .js comme JSX
+    config.esbuild = {
+      loader: "jsx",
+      ...(config.esbuild || {})
+    };
 
-    // 2) supprimer le plugin react existant
+    // Supprimer un éventuel plugin react déjà présent
     const withoutReact =
-      (config.plugins ?? []).filter((p) => !(p?.name?.includes('vite:react'))) ?? [];
+      (config.plugins ?? []).filter(
+        (p) => !(p?.name?.includes("vite:react"))
+      ) ?? [];
 
-    // 3) fusionner avec la config react
     return mergeConfig(
       { ...config, plugins: withoutReact },
       {
         plugins: [
           react({
-            jsxRuntime: 'automatic',
-            include: [/\.(j|t)sx?$/],
-          }),
-        ],
+            jsxRuntime: "automatic",
+            include: [/\.(j|t)sx?$/]
+          })
+        ]
       }
     );
-  },
+  }
 };

@@ -4,19 +4,17 @@ import Label from "../../label/Label";
 
 const InputCheckbox = ({
   options = [],
+  value = undefined,              // contrôlé
   onChange = () => {},
   allDisabled = false,
-  label = "Sélectionner une option",
+  label = null,
   required = false,
 }) => {
   const [selectedIds, setSelectedIds] = useState(
-    options.filter((o) => o.defaultChecked).map((o) => o.id)
+    value ?? options.filter((o) => o.defaultChecked).map((o) => o.id)
   );
 
-  if (allDisabled) required = false;
-
   const labelRefs = useRef([]);
-
   const [longestLabelWidth, setLongestLabelWidth] = useState(0);
 
   const handleCheckboxChange = (id, isChecked) => {
@@ -24,12 +22,20 @@ const InputCheckbox = ({
       ? [...selectedIds, id]
       : selectedIds.filter((item) => item !== id);
 
-    setSelectedIds(updated);
+    if (value === undefined) {
+      setSelectedIds(updated);
+    }
     onChange(updated);
   };
 
   useEffect(() => {
-    const widths = labelRefs.current.map(ref => ref?.offsetWidth || 0);
+    if (value !== undefined) {
+      setSelectedIds(value);
+    }
+  }, [value]);
+
+  useEffect(() => {
+    const widths = labelRefs.current.map((ref) => ref?.offsetWidth || 0);
     const maxWidth = Math.max(...widths);
     if (maxWidth > 0) {
       setLongestLabelWidth(maxWidth);
@@ -37,9 +43,9 @@ const InputCheckbox = ({
   }, [options]);
 
   return (
-    <Label required={required}>
-      <Label.Title>{label}</Label.Title>
-      <div className="flex flex-col gap-2">
+    <Label required={required && !allDisabled}>
+      {label && <Label.Title>{label}</Label.Title>}
+      <div className="flex flex-col gap-2" role="group">
         {options.map(
           (
             {
@@ -54,15 +60,13 @@ const InputCheckbox = ({
           ) => {
             const isLeft = labelPosition === "left";
             const isDisabled = allDisabled || disabled;
+            const isChecked = selectedIds.includes(id);
 
             return (
-              <div
-                key={id}
-                className="flex items-center"
-              >
+              <div key={id} className="flex items-center">
                 {isLeft && (
                   <span
-                    ref={el => (labelRefs.current[index] = el)}
+                    ref={(el) => (labelRefs.current[index] = el)}
                     className="text-sm"
                     style={{
                       minWidth: `${longestLabelWidth}px`,
@@ -84,7 +88,7 @@ const InputCheckbox = ({
                   type="checkbox"
                   id={id}
                   name={name}
-                  defaultChecked={defaultChecked}
+                  checked={isChecked}
                   disabled={isDisabled}
                   onChange={(e) =>
                     handleCheckboxChange(id, e.target.checked)
@@ -93,7 +97,7 @@ const InputCheckbox = ({
                 />
                 {!isLeft && (
                   <span
-                    ref={el => (labelRefs.current[index] = el)}
+                    ref={(el) => (labelRefs.current[index] = el)}
                     className="text-sm"
                   >
                     <label
@@ -125,6 +129,7 @@ InputCheckbox.propTypes = {
       labelPosition: PropTypes.oneOf(["left", "right"]),
     })
   ).isRequired,
+  value: PropTypes.arrayOf(PropTypes.string), // mode contrôlé
   onChange: PropTypes.func,
   allDisabled: PropTypes.bool,
   label: PropTypes.string,

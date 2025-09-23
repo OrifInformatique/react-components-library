@@ -1,41 +1,89 @@
+// src/ui/inputs/checkbox/InputCheckbox.stories.jsx
+import React, { useState } from "react";
 import InputCheckbox from "./InputCheckbox";
 
-export default {
+const meta = {
   title: "Components/UI/InputCheckbox",
   component: InputCheckbox,
   tags: ["autodocs"],
-  layout: "fullscreen",
+  parameters: { layout: "fullscreen" },
+};
+export default meta;
+
+export const Basic = {
+  args: {
+    label: "Choose your options",
+    options: [
+      { id: "1", name: "opt1", label: "Option 1" },
+      { id: "2", name: "opt2", label: "Option 2" },
+      { id: "3", name: "opt3", label: "Option 3", defaultChecked: true },
+    ],
+  },
 };
 
-const baseOptions = [
-  { id: "option-1", name: "choices", label: "Option 1" },
-  { id: "option-2", name: "choices", label: "Option 2", defaultChecked: true },
-  { id: "option-3", name: "choices", label: "Option 3" },
-  { id: "option-4", name: "choices", label: "Option 4", disabled: true },
-];
-
-export const Default = {
+export const LabelLeft = {
   args: {
-    options: baseOptions,
-    required: false,
-    onChange: (selectedIds) => console.log("Sélection :", selectedIds),
+    label: "Choose with labels on the left",
+    options: [
+      { id: "a", name: "optA", label: "Option 1", labelPosition: "left" },
+      { id: "b", name: "optB", label: "Option 2", labelPosition: "left" },
+    ],
+  },
+};
+
+export const DisabledOptions = {
+  args: {
+    label: "Some disabled options",
+    options: [
+      { id: "x", name: "optX", label: "Enabled option" },
+      { id: "y", name: "optY", label: "Disabled option", disabled: true },
+    ],
   },
 };
 
 export const AllDisabled = {
   args: {
-    options: baseOptions,
+    label: "All options disabled",
     allDisabled: true,
-    required: true,
-    onChange: (selectedIds) => console.log("Sélection (disabled):", selectedIds),
+    options: [
+      { id: "p", name: "optP", label: "Option P" },
+      { id: "q", name: "optQ", label: "Option Q" },
+    ],
   },
 };
 
-export const LabelOnLeft = {
+export const Required = {
   args: {
-    name: "choices-left",
-    options: baseOptions.map((opt) => ({ ...opt, labelPosition: "left" })),
+    label: "This field is required",
     required: true,
-    onChange: (selectedId) => console.log("Selected (left):", selectedId),
+    options: [
+      { id: "r1", name: "optR1", label: "Required 1" },
+      { id: "r2", name: "optR2", label: "Required 2" },
+    ],
+  },
+};
+
+export const Controlled = {
+  render: (args) => {
+    const [selected, setSelected] = useState(["c1"]);
+    return (
+      <div className="space-y-4">
+        <InputCheckbox
+          {...args}
+          value={selected}
+          onChange={setSelected}
+        />
+        <p className="text-sm text-gray-600">
+          Selected: {selected.length > 0 ? selected.join(", ") : "none"}
+        </p>
+      </div>
+    );
+  },
+  args: {
+    label: "Controlled example",
+    options: [
+      { id: "c1", name: "optC1", label: "Controlled 1" },
+      { id: "c2", name: "optC2", label: "Controlled 2" },
+    ],
   },
 };

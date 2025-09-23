@@ -1,43 +1,50 @@
+import React, { useState } from "react";
 import InputRadio from "./InputRadio";
 
-export default {
+const meta = {
   title: "Components/UI/InputRadio",
   component: InputRadio,
   tags: ["autodocs"],
-  layout: "fullscreen",
+  parameters: { layout: "fullscreen" },
 };
-
-const baseOptions = [
-  { id: "radio-1", label: "Option 1", defaultChecked: true },
-  { id: "radio-2", label: "Option 2" },
-  { id: "radio-3", label: "Option 3" },
-  { id: "radio-4", label: "Option 4", disabled: true },
-];
+export default meta;
 
 export const Default = {
   args: {
-    name: "choices",
-    options: baseOptions,
-    required: false,
-    onChange: (selectedId) => console.log("Selected radio:", selectedId),
+    name: "example",
+    label: "Choose one option",
+    options: [
+      { id: "opt1", label: "Option 1", defaultChecked: true },
+      { id: "opt2", label: "Option 2" },
+      { id: "opt3", label: "Option 3", disabled: true },
+    ],
   },
 };
 
-export const AllDisabled = {
+export const LeftLabel = {
   args: {
-    name: "choices-disabled",
-    options: baseOptions,
-    disabledAll: true,
-    required: true,
-    onChange: (selectedId) => console.log("Selected radio (disabled):", selectedId),
+    name: "example-left",
+    label: "Left labels",
+    options: [
+      { id: "opt1", label: "Option 1", labelPosition: "left" },
+      { id: "opt2", label: "Option 2", labelPosition: "left" },
+    ],
   },
 };
 
-export const LabelOnLeft = {
-  args: {
-    name: "choices-left",
-    options: baseOptions.map((opt) => ({ ...opt, labelPosition: "left" })),
-    required: true,
-    onChange: (selectedId) => console.log("Selected (left):", selectedId),
+export const Controlled = {
+  render: () => {
+    const [selected, setSelected] = useState("opt1");
+    return (
+      <InputRadio
+        name="controlled-example"
+        label="Controlled radio input"
+        options={[
+          { id: "opt1", label: "Option 1" },
+          { id: "opt2", label: "Option 2" },
+        ]}
+        onChange={(id) => setSelected(id)}
+      />
+    );
   },
 };

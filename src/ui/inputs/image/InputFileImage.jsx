@@ -6,7 +6,7 @@ import Button from "../../buttons/default/Button";
 import Image from "../../image/Image";
 import Label from "../../label/Label";
 
-import { formatBytes } from "../../../utils/fileUtils";
+
 
 /**
  * UI component to display a image upload input.

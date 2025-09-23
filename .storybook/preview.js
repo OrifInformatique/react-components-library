@@ -1,5 +1,5 @@
 // .storybook/preview.js
-import "../src/styles/tailwind.css";
+import "../src/index.css";
 
 export const parameters = {
   controls: { expanded: true },

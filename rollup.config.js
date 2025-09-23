@@ -68,7 +68,7 @@ function inlineCssIcons(options = {}) {
 }
 
 export default {
-  input: 'src/lib.js',
+  input: 'src/index.js',
   external: ['react', 'react-dom'],
   output: [
     { file: 'dist/index.esm.js', format: 'esm', sourcemap: true },

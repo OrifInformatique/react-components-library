@@ -1,4 +1,4 @@
-import './styles/tailwind.css';
+import './index.css';
 
 // Layouts
 export { default as MainLayout } from './layouts/MainLayout';

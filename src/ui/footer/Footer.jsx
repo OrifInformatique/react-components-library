@@ -1,11 +1,17 @@
+// src/ui/footer/Footer.jsx
 import React from "react";
+import PropTypes from "prop-types";
 
-const Footer = () => {
-    return (
-        <div className="flex items-center text-lg text-primary w-full border-t py-6 px-6">
-            &copy; Orif 2025
-        </div>
-    );
-}
+const Footer = ({ children }) => {
+  return (
+    <footer className="w-full border-t border-black py-6 px-6 flex justify-center items-center">
+      {children}
+    </footer>
+  );
+};
+
+Footer.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 export default Footer;

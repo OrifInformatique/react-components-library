@@ -8,8 +8,13 @@ export default {
   parameters: { layout: "fullscreen" },
 };
 
-export const Default = {
-  render: () => <Footer>© YourCompany 2025</Footer>,
+export const TextCentered = {
+  render: () =>
+    <Footer>
+      <div className="flex justify-center">
+        © Company 2025
+      </div>
+    </Footer>,
 };
 
 export const WithLinks = {
@@ -33,11 +38,11 @@ export const WithLinks = {
 export const WithLogo = {
   render: () => (
     <Footer>
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-10 text-primary">
         <img
-          src="./assets/images/logo.svg" // ⚠️ Mets ici ton logo de lib
+          src="./assets/images/logo.svg"
           alt="Library Logo"
-          className="h-6 w-6"
+          className="h-8"
         />
         <span>© YourLibrary 2025</span>
       </div>

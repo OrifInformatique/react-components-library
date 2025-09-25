@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 
 const Footer = ({ children }) => {
   return (
-    <footer className="w-full border-t border-black py-6 px-6 flex justify-center items-center">
+    <footer className="w-full border-t border-primary py-6 px-6">
       {children}
     </footer>
   );

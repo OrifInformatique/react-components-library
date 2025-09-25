@@ -6,11 +6,11 @@ import Icon from "../../icon/Icon";
 
 const Button = ({
   className = "",
-  variant = "tertiary",
+  variant = "primary",
   label = null,
   icon = null,
   size = "medium",
-  hideTextOnMobile = true,
+  hideTextOnMobile = false,
   ...props
 }) => {
   const buttonMode = (variant) => {
@@ -48,7 +48,7 @@ const Button = ({
       case "primary":
         return "white";
       case "secondary":
-        return "primary"; // ⚠️ à valider avec Icon
+        return "primary";
       case "tertiary":
         return "black";
       case "danger":

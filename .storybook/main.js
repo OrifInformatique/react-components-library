@@ -1,4 +1,3 @@
-// .storybook/main.js
 import { mergeConfig } from "vite";
 import react from "@vitejs/plugin-react";
 

@@ -1,0 +1,13 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/forms";
+
+/* Thème de TON projet (noms strictement identiques) */
+@theme {
+  --color-primary:    #005ba9;
+  --color-background: #f4f7fd;
+  --color-disabled:   #e7e7e7;
+  --color-danger:     #b91c1c;
+
+  --font-display: "Montserrat", sans-serif;
+}
+

@@ -1,7 +1,7 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/forms";
 
-/* Thème de TON projet (noms strictement identiques) */
+/* Thème du projet (noms strictement identiques) */
 @theme {
   --color-primary:    #005ba9;
   --color-background: #f4f7fd;

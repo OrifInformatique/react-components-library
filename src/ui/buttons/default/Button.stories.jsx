@@ -28,6 +28,7 @@ export const Secondary = {
 
 export const Tertiary = {
     args: {
+        variant: "tertiary",
         label: "Cancel",
         icon: "restore"
     }

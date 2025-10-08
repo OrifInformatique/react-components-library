@@ -208,10 +208,22 @@ Only the metadata files are published.
 
 To release a new version:
 
-1. Bump the version:
+1. Option A, bump the version:
 
 ```bash
 npm version patch --no-git-tag-version -m "chore(release): %s"
+```
+
+OR
+
+1. Option B, manually adjust the version number in package.json file and build the library :
+
+```json
+"version": "1.0.0",
+```
+
+```bash
+npm run build
 ```
 
 2. Publish to npm:

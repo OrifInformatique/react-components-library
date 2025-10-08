@@ -1,2 +1,7 @@
+# Dependencies
 node_modules/
-dist/
+
+# Production build output
+/dist
+*.log
+.DS_Store

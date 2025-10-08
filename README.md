@@ -1,4 +1,4 @@
-# @orif-informatique/react-component-library
+# @orif-informatique/react-components-library
 
 A reusable **React component library** built with **Rollup**, **Storybook**, and **TailwindCSS**.  
 It provides a set of shared UI components and styles to ensure design consistency across projects.
@@ -43,7 +43,7 @@ npm install react react-dom clsx prop-types
 Install the package from npm:
 
 ```bash
-npm install @orif-informatique/react-component-library
+npm install @orif-informatique/react-components-library
 ```
 
 ---
@@ -53,8 +53,8 @@ npm install @orif-informatique/react-component-library
 Import the components you need, and don’t forget to include the library’s styles:
 
 ```jsx
-import { PopUp, DefaultButton } from "@orif-informatique/react-component-library";
-import "@orif-informatique/react-component-library/styles.css";
+import { PopUp, DefaultButton } from "@orif-informatique/react-components-library";
+import "@orif-informatique/react-components-library/styles.css";
 
 function Example() {
   const [open, setOpen] = React.useState(false);
@@ -247,11 +247,11 @@ npm whoami
 - **Exports**: All components are exported at the root level.  
   Example:  
   ```js
-  import { PopUp } from "@orif-informatique/react-component-library";
+  import { PopUp } from "@orif-informatique/react-components-library";
   ```
 - **Styles**: Must be imported explicitly:  
   ```js
-  import "@orif-informatique/react-component-library/styles.css";
+  import "@orif-informatique/react-components-library/styles.css";
   ```
 - **Peer dependencies**: Always provided by the parent app.
 

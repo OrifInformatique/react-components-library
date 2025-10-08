@@ -1,6 +1,6 @@
 {
-  "name": "@librarykingkong/library-test",
-  "version": "0.1.3",
+  "name": "@orif-informatique/react-component-library",
+  "version": "1.0.0",
   "private": false,
   "type": "module",
   "main": "dist/index.cjs.js",

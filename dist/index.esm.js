@@ -3430,11 +3430,11 @@ const Icon = ({ name = "home", size = 12, color = "black" }) => {
 
 const Button = ({
   className = "",
-  variant = "tertiary",
+  variant = "primary",
   label = null,
   icon = null,
   size = "medium",
-  hideTextOnMobile = true,
+  hideTextOnMobile = false,
   ...props
 }) => {
   const buttonMode = (variant2) => {
@@ -3471,7 +3471,6 @@ const Button = ({
         return "white";
       case "secondary":
         return "primary";
-      // ⚠️ à valider avec Icon
       case "tertiary":
         return "black";
       case "danger":
@@ -3558,54 +3557,91 @@ const ScrollToTopButton = () => {
 };
 
 const Footer = ({ children }) => {
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("footer", { className: "w-full border-t border-black py-6 px-6 flex justify-center items-center", children });
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("footer", { className: "w-full border-t border-primary py-6 px-6", children });
 };
 Footer.propTypes = {
   children: PropTypes.node.isRequired
 };
 
-const Header = ({
-  title,
-  logo,
-  childElement = null,
-  userMenu = null,
-  className = ""
+const UserMenu = ({
+  user = null,
+  setIsOpen,
+  onLogin = () => {
+  },
+  onLogout = () => {
+  }
 }) => {
-  var _a;
+  const ref = useRef(null);
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (ref.current && !ref.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [setIsOpen]);
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref, className: "absolute flex flex-col items-end gap-2 mt-4 right-2 top-full border bg-gray-100 p-4", children: user ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
+      "Bonjour, ",
+      /* @__PURE__ */ jsxRuntimeExports.jsx("b", { children: user.name }),
+      " !"
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "flex flex-col items-end text-primary", children: [
+      user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: "Administration" }) }),
+      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: "Changer de mot de passe" }) })
+    ] }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { label: "Logout", icon: "logout", onClick: onLogout })
+  ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Vous n'\xEAtes pas connect\xE9" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { variant: "primary", label: "Login", icon: "login", onClick: onLogin })
+  ] }) });
+};
+UserMenu.propTypes = {
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    role: PropTypes.oneOf(["admin", "user"]).isRequired
+  }),
+  setIsOpen: PropTypes.func.isRequired,
+  onLogin: PropTypes.func,
+  onLogout: PropTypes.func
+};
+
+const Header = ({
+  user = null,
+  title = null,
+  childElement = null
+}) => {
   const [isOpen, setIsOpen] = useState(false);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("header", { className: `border-b shadow-sm py-8 px-6 ${className}`, children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative flex justify-between items-center", children: [
-    logo && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "flex-shrink-0", children: logo }),
-    title && /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "absolute text-4xl left-1/2 transform -translate-x-1/2", children: title }),
+  return /* @__PURE__ */ jsxRuntimeExports.jsx("header", { className: "border-b border-primary py-6 px-2", children: /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "relative flex justify-between items-center", children: [
+    /* @__PURE__ */ jsxRuntimeExports.jsx(Logo, { className: "h-10" }),
+    /* @__PURE__ */ jsxRuntimeExports.jsx("h1", { className: "absolute text-4xl left-1/2 transform -translate-x-1/2 center", children: title }),
     /* @__PURE__ */ jsxRuntimeExports.jsxs("div", { className: "flex items-center gap-x-4", children: [
       childElement,
-      userMenu && /* @__PURE__ */ jsxRuntimeExports.jsx(
-        "button",
+      /* @__PURE__ */ jsxRuntimeExports.jsx(
+        "a",
         {
-          type: "button",
-          onClick: () => setIsOpen((prev) => !prev),
-          className: "focus:outline-none",
-          children: (_a = userMenu.icon) != null ? _a : "\u2630"
+          href: "#",
+          onClick: (e) => {
+            e.preventDefault();
+            setIsOpen((prev) => !prev);
+          },
+          children: /* @__PURE__ */ jsxRuntimeExports.jsx(Icon, { name: "user" })
         }
       )
     ] }),
-    isOpen && (userMenu == null ? void 0 : userMenu.content) && /* @__PURE__ */ jsxRuntimeExports.jsx("div", { className: "absolute right-0 mt-2", children: typeof userMenu.content === "function" ? userMenu.content({ close: () => setIsOpen(false) }) : userMenu.content })
+    isOpen && /* @__PURE__ */ jsxRuntimeExports.jsx(UserMenu, { user, setIsOpen })
   ] }) });
 };
 Header.propTypes = {
-  title: PropTypes.string,
-  logo: PropTypes.node,
-  // any JSX (e.g. <Logo />)
-  childElement: PropTypes.element,
-  userMenu: PropTypes.shape({
-    icon: PropTypes.node,
-    // button/icon to toggle menu
-    content: PropTypes.oneOfType([
-      PropTypes.node,
-      PropTypes.func
-      // allows passing a function with close callback
-    ])
+  user: PropTypes.shape({
+    name: PropTypes.string.isRequired,
+    role: PropTypes.oneOf(["admin", "user"]).isRequired
   }),
-  className: PropTypes.string
+  title: PropTypes.string,
+  childElement: PropTypes.element
 };
 
 const Image = ({
@@ -3958,7 +3994,7 @@ const InputFile = ({
         onChange: handleFileChange,
         disabled,
         required: isRequired,
-        className: "\r\n          file:cursor-pointer\r\n          file:rounded-md\r\n          file:border file:border-primary\r\n          file:px-4 file:py-2\r\n          file:text-primary file:bg-transparent\r\n          hover:file:bg-primary hover:file:text-white\r\n          focus:file:outline-none focus:file:ring-2 focus:file:ring-primary/30\r\n          disabled:file:opacity-50 disabled:file:cursor-not-allowed\r\n        "
+        className: "\n          file:cursor-pointer\n          file:rounded-md\n          file:border file:border-primary\n          file:px-4 file:py-2\n          file:text-primary file:bg-transparent\n          hover:file:bg-primary hover:file:text-white\n          focus:file:outline-none focus:file:ring-2 focus:file:ring-primary/30\n          disabled:file:opacity-50 disabled:file:cursor-not-allowed\n        "
       }
     )
   ] });
@@ -4751,52 +4787,6 @@ const Snackbar = ({
       ]
     }
   );
-};
-
-const UserMenu = ({
-  user = null,
-  setIsOpen,
-  onLogin = () => {
-  },
-  onLogout = () => {
-  }
-}) => {
-  const ref = useRef(null);
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (ref.current && !ref.current.contains(event.target)) {
-        setIsOpen(false);
-      }
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [setIsOpen]);
-  return /* @__PURE__ */ jsxRuntimeExports.jsx("div", { ref, className: "absolute flex flex-col items-end gap-2 mt-4 right-2 top-full border bg-gray-100 p-4", children: user ? /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("span", { children: [
-      "Bonjour, ",
-      /* @__PURE__ */ jsxRuntimeExports.jsx("b", { children: user.name }),
-      " !"
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsxs("ul", { className: "flex flex-col items-end text-primary", children: [
-      user.role === "admin" && /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: "Administration" }) }),
-      /* @__PURE__ */ jsxRuntimeExports.jsx("li", { children: /* @__PURE__ */ jsxRuntimeExports.jsx("a", { href: "/", children: "Changer de mot de passe" }) })
-    ] }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { label: "Logout", icon: "logout", onClick: onLogout })
-  ] }) : /* @__PURE__ */ jsxRuntimeExports.jsxs(jsxRuntimeExports.Fragment, { children: [
-    /* @__PURE__ */ jsxRuntimeExports.jsx("p", { children: "Vous n'\xEAtes pas connect\xE9" }),
-    /* @__PURE__ */ jsxRuntimeExports.jsx(Button, { variant: "primary", label: "Login", icon: "login", onClick: onLogin })
-  ] }) });
-};
-UserMenu.propTypes = {
-  user: PropTypes.shape({
-    name: PropTypes.string.isRequired,
-    role: PropTypes.oneOf(["admin", "user"]).isRequired
-  }),
-  setIsOpen: PropTypes.func.isRequired,
-  onLogin: PropTypes.func,
-  onLogout: PropTypes.func
 };
 
 export { Button, ColorChange, Button as DefaultButton, Footer, Header, Icon, Image, InputCheckbox, InputDate, InputEmail, InputFile, InputFileImage, InputHidden, InputNumber, InputPassword, InputRadio, InputSearch, InputText, Label, Link, Logo, MultiSelect, PopUp, ScrollToTopButton, SingleSelect, Snackbar as SnackBar, Textarea, Title, UserMenu };

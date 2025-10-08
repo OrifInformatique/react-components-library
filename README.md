@@ -1,4 +1,4 @@
-# @librarykingkong/library-test
+# @orif-informatique/react-component-library
 
 A reusable **React component library** built with **Rollup**, **Storybook**, and **TailwindCSS**.  
 It provides a set of shared UI components and styles to ensure design consistency across projects.
@@ -43,7 +43,7 @@ npm install react react-dom clsx prop-types
 Install the package from npm:
 
 ```bash
-npm install @librarykingkong/library-test
+npm install @orif-informatique/react-component-library
 ```
 
 ---
@@ -53,8 +53,8 @@ npm install @librarykingkong/library-test
 Import the components you need, and don’t forget to include the library’s styles:
 
 ```jsx
-import { PopUp, DefaultButton } from "@librarykingkong/library-test";
-import "@librarykingkong/library-test/styles.css";
+import { PopUp, DefaultButton } from "@orif-informatique/react-component-library";
+import "@orif-informatique/react-component-library/styles.css";
 
 function Example() {
   const [open, setOpen] = React.useState(false);
@@ -235,11 +235,11 @@ npm whoami
 - **Exports**: All components are exported at the root level.  
   Example:  
   ```js
-  import { PopUp } from "@librarykingkong/library-test";
+  import { PopUp } from "@orif-informatique/react-component-library";
   ```
 - **Styles**: Must be imported explicitly:  
   ```js
-  import "@librarykingkong/library-test/styles.css";
+  import "@orif-informatique/react-component-library/styles.css";
   ```
 - **Peer dependencies**: Always provided by the parent app.
 

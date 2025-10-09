@@ -9,13 +9,14 @@ import UserMenu from "../user-menu/UserMenu";
 const Header = ({
   user = null,
   title = null,
+  logoPath,
   childElement = null }) => {
     const [isOpen, setIsOpen] = useState(false);
 
     return (
         <header className="border-b border-primary py-6 px-2">
             <div className="relative flex justify-between items-center">
-                <Logo className={"h-10"} />
+                <Logo className={"h-10"} imagePath={logoPath} />
                 <h1 className="absolute text-4xl left-1/2 transform -translate-x-1/2 center">
                     {title}
                 </h1>
@@ -45,6 +46,7 @@ Header.propTypes = {
         role: PropTypes.oneOf(["admin", "user"]).isRequired
     }),
     title: PropTypes.string,
+    logoPath: PropTypes.string.isRequired,
     childElement: PropTypes.element
 }
 

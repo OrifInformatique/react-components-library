@@ -211,7 +211,14 @@ To release a new version:
 1. Option A, bump the version:
 
 ```bash
-npm version patch --no-git-tag-version -m "chore(release): %s"
+# For a patch version incrementation (1.0.0 > 1.0.1)
+npm version patch -m "chore(release): %s"
+
+# For a minor version incrementation (1.0.0 > 1.1.0)
+npm version minor -m "chore(release): %s"
+
+# For a major version incrementation (1.0.0 > 2.0.0)
+npm version major -m "chore(release): %s"
 ```
 
 OR

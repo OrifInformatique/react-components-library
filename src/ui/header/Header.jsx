@@ -10,6 +10,8 @@ const Header = ({
   user = null,
   title = null,
   logoPath,
+  onLogin = () => {},
+  onLogout = () => {},
   childElement = null }) => {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -33,7 +35,7 @@ const Header = ({
                     </a>
                 </div>
                 {isOpen && (
-                    <UserMenu user={user} setIsOpen={setIsOpen} />
+                    <UserMenu user={user} setIsOpen={setIsOpen} onLogin={onLogin} onLogout={onLogout}/>
                 )}
             </div>
         </header>
@@ -47,7 +49,9 @@ Header.propTypes = {
     }),
     title: PropTypes.string,
     logoPath: PropTypes.string.isRequired,
-    childElement: PropTypes.element
+    childElement: PropTypes.element,
+    onLogin: PropTypes.func,
+    onLogout: PropTypes.func
 }
 
 export default Header;

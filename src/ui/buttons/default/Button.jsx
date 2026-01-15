@@ -86,7 +86,7 @@ const Button = ({
       {...props}
     >
       {icon && (
-        <Icon name={icon} color={iconColor(variant)} size={iconSize(size)} />
+        <Icon name={icon} color={iconColor(variant)} size={iconSize(size)} disableAnimation={true} />
       )}
       {label && (
         <span className={hideTextOnMobile && icon ? "hidden sm:inline" : ""}>

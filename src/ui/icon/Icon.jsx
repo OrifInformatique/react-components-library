@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Icon = ({ name = "home", size = 12, color = "black" }) => {
+const Icon = ({ name = "home", size = 12, color = "black", disableAnimation = false }) => {
     const sizeClasses = {
         4: "size-4",
         6: "size-6",
@@ -22,7 +22,8 @@ const Icon = ({ name = "home", size = 12, color = "black" }) => {
 
     const sizeClass = sizeClasses[size] || sizeClasses[12];
     const colorClass = colorClasses[color] || sizeClasses["black"];
-    const className = ["transition transform duration-300 stroke-1 hover:scale-105",
+    const animationClass = disableAnimation ? "" : "hover:scale-105";
+    const className = ["transition transform duration-300 stroke-1", animationClass,
         colorClass, sizeClass].join(" ");
 
     const icons = {
@@ -204,7 +205,8 @@ const Icon = ({ name = "home", size = 12, color = "black" }) => {
     Icon.propTypes = {
         name: PropTypes.oneOf(Object.keys(icons)),
         size: PropTypes.oneOf(Object.keys(sizeClasses)),
-        color: PropTypes.oneOf(Object.keys(colorClasses))
+        color: PropTypes.oneOf(Object.keys(colorClasses)),
+        disableAnimation: PropTypes.bool
     }
 
     const iconSvg = icons[name] || icons["home"];

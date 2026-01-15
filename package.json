@@ -18,7 +18,8 @@
   "files": [
     "dist",
     "package.json",
-    "README.md"
+    "README.md",
+    "assets"
   ],
   "scripts": {
     "clean": "rimraf dist src/styles/dist || true",

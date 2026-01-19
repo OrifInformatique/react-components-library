@@ -37,7 +37,8 @@ export const Tertiary = {
 export const Danger = {
     args: {
         variant: "danger",
-        icon: "cross"
+        icon: "cross",
+        size: "medium"
     }
 }
 

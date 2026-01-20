@@ -23,7 +23,7 @@ const Icon = ({ name = "home", size = 12, color = "black", disableAnimation = fa
     const sizeClass = sizeClasses[size] || sizeClasses[12];
     const colorClass = colorClasses[color] || sizeClasses["black"];
     const animationClass = disableAnimation ? "" : "hover:scale-105";
-    const className = ["transition transform duration-300 stroke-1", animationClass,
+    const className = ["transition transform duration-300 stroke-[1.3]", animationClass,
         colorClass, sizeClass].join(" ");
 
     const icons = {

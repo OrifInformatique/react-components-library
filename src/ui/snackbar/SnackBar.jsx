@@ -32,13 +32,13 @@ const Snackbar = ({
             color: "text-black"
         },
         "warning": {
-            icon: "home", // TODO : Add missing warning icon
+            icon: "exclamation-circle",
             backgroundColor: "bg-amber-500/80",
             borderColor: "border-black",
             color: "text-black"
         },
         "error": {
-            icon: "home", // TODO : Add missing error icon
+            icon: "exclamation-triangle",
             backgroundColor: "bg-red-500/80",
             borderColor: "border-black",
             color: "text-black"

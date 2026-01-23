@@ -15,9 +15,9 @@ const Icon = ({ name = "home", size = 12, color = "black", disableAnimation = fa
 
     const colorClasses = {
         "white": "text-white",
-        "black": "text-black group-hover:text-white",
+        "black": "text-black group-hover:text-black",
         "primary": "text-primary group-hover:text-primary",
-        "danger": "text-danger group-hover:text-white"
+        "danger": "text-danger group-hover:text-danger"
     }
 
     const sizeClass = sizeClasses[size] || sizeClasses[12];

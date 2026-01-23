@@ -20,11 +20,11 @@ const Button = ({
       case "secondary":
         return "bg-white text-primary opacity-120";
       case "tertiary":
-        return "bg-black text-white before:border-transparent";
+        return "bg-white text-black";
       case "link":
         return "text-primary font-light hover:underline focus:underline";
       case "danger":
-        return "bg-danger text-white hover:text-danger before:border-danger";
+        return "bg-white text-danger before:border-danger";
       default:
         return "border border-black border-opacity-60 active:text-gray-700";
     }
@@ -50,9 +50,9 @@ const Button = ({
       case "secondary":
         return "primary";
       case "tertiary":
-        return "white";
+        return "black";
       case "danger":
-        return "white";
+        return "danger";
       default:
         return "black";
     }

@@ -35,11 +35,11 @@ const Button = ({
       case "small":
         return "text-sm";
       case "medium":
-        return "text-md";
+        return "text-base";
       case "large":
         return "text-lg";
       default:
-        return "text-md";
+        return "text-base";
     }
   };
 

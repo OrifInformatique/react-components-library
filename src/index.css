@@ -5,17 +5,39 @@
 @font-face {
   font-family: "Montserrat";
   src: url("../assets/fonts/montserrat.ttf") format("truetype");
-  font-weight: 100,200,300,400,500,600,700,800,900;
+  font-weight: 100, 200, 300, 400, 500, 600, 700, 800, 900;
 }
 
 /* Thème du projet (noms strictement identiques) */
 @theme {
-  --color-primary:    #005ba9;
+  --color-primary: #005ba9;
   --color-background: #f4f7fd;
-  --color-disabled:   #e7e7e7;
-  --color-danger:     #b91c1c;
+  --color-disabled: #e7e7e7;
+  --color-danger: #b91c1c;
 
   --font-display: "Montserrat", sans-serif;
+
+  --animate-fade-in: fade-in 0.3s ease-out;
+  @keyframes fade-in {
+    0% {
+      opacity: 0;
+    }
+
+    100% {
+      opacity: 1;
+    }
+  }
+
+  --animate-fade-out: fade-out 0.3s ease-in forwards;
+  @keyframes fade-out {
+    0% {
+      opacity: 1;
+    }
+
+    100% {
+      opacity: 0;
+    }
+  }
 }
 
 /* Applique la police Montserrat globalement */
@@ -24,4 +46,3 @@
     font-family: "Montserrat", sans-serif;
   }
 }
-

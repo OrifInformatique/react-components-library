@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import Label from "../../label/Label";
+import Button from "../../buttons/default/Button";
 
 const InputFile = ({
   id,
@@ -9,18 +10,30 @@ const InputFile = ({
   accept = "",
   disabled = false,
   required = false,
-  onChange = () => {}
+  buttonLabel = "Parcourir",
+  onChange = () => { }
 }) => {
+  const [fileName, setFileName] = useState("");
   const isRequired = !disabled && required;
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files?.[0] || null;
+    setFileName(selectedFile.name || "");
     onChange(selectedFile);
   };
 
   return (
     <Label htmlFor={id} required={isRequired}>
       <Label.Title>{label}</Label.Title>
+      <div className="flex items-center gap-2">
+        <Button
+          variant="primary"
+          label={buttonLabel}
+          onClick={() => document.getElementById(id)?.click()}
+          disabled={disabled}
+        />
+        {fileName && <span className="text-sm">{fileName}</span>}
+      </div>
       <input
         type="file"
         id={id}
@@ -29,16 +42,7 @@ const InputFile = ({
         onChange={handleFileChange}
         disabled={disabled}
         required={isRequired}
-        className="
-          file:cursor-pointer
-          file:rounded-md
-          file:border file:border-primary
-          file:px-4 file:py-2
-          file:text-primary file:bg-transparent
-          hover:file:bg-primary hover:file:text-white
-          focus:file:outline-none focus:file:ring-2 focus:file:ring-primary/30
-          disabled:file:opacity-50 disabled:file:cursor-not-allowed
-        "
+        className="hidden"
       />
     </Label>
   );

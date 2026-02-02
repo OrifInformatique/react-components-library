@@ -39,6 +39,7 @@ export const Default = {
     accept: "*/*",
     required: false,
     disabled: false,
+    buttonLabel: "Parcourir...",
   },
 };
 
@@ -48,6 +49,7 @@ export const WithImageRestriction = {
     name: "image-upload",
     label: "Upload an image",
     accept: "image/*",
+    buttonLabel: "Select Image",
   },
 };
 
@@ -57,6 +59,7 @@ export const WithPDFRestriction = {
     name: "pdf-upload",
     label: "Upload a PDF",
     accept: "application/pdf",
+    buttonLabel: "Select PDF",
   },
 };
 
@@ -66,6 +69,7 @@ export const Disabled = {
     name: "disabled-upload",
     label: "File upload disabled",
     disabled: true,
+
   },
 };
 
@@ -75,5 +79,6 @@ export const Required = {
     name: "required-upload",
     label: "This file is required",
     required: true,
+    buttonLabel: "Choose File",
   },
 };

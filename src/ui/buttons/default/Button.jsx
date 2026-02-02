@@ -90,7 +90,10 @@ const Button = ({
           active:before:scale-[1.01]
           hover:shadow-lg/22
           active:shadow-lg/14
-          focus:outline-none`
+          disabled:opacity-50
+          disabled:cursor-not-allowed
+          disabled:hover:before:scale-100
+          disabled:hover:shadow-none`
           : "",
         className,
         buttonMode(variant),

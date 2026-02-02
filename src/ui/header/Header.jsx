@@ -9,6 +9,9 @@ import UserMenu from "../user-menu/UserMenu";
 const Header = ({
   user = null,
   title = null,
+  greetingLabel = "Bonjour",
+  passwordChangeLabel = "Changer de mot de passe",
+  administrationLabel = "Administration",
   logoPath,
   onLogin = () => {},
   onLogout = () => {},
@@ -35,7 +38,7 @@ const Header = ({
                     </a>
                 </div>
                 {isOpen && (
-                    <UserMenu user={user} setIsOpen={setIsOpen} onLogin={onLogin} onLogout={onLogout}/>
+                    <UserMenu user={user} setIsOpen={setIsOpen} onLogin={onLogin} onLogout={onLogout} greetingLabel={greetingLabel} passwordChangeLabel={passwordChangeLabel} administrationLabel={administrationLabel} />
                 )}
             </div>
         </header>

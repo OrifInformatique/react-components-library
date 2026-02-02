@@ -7,7 +7,10 @@ const UserMenu = ({
     user = null,
     setIsOpen,
     onLogin = () => {},
-    onLogout = () => {}
+    onLogout = () => {},
+    greetingLabel = "Bonjour",
+    passwordChangeLabel = "Changer de mot de passe",
+    administrationLabel = "Administration"
 }) => {
     const ref = useRef(null);
 
@@ -25,17 +28,17 @@ const UserMenu = ({
     }, [setIsOpen]);
 
     return (
-        <div ref={ref} className="absolute flex flex-col items-end gap-2 mt-4 right-2 top-full border bg-gray-100 p-4">
+        <div ref={ref} className="absolute flex flex-col items-start gap-2 mt-4 right-2 top-full rounded-md shadow-lg bg-background p-4">
             {user ? (<>
-                <span>Bonjour, <b>{user.name}</b> !</span>
-                <ul className="flex flex-col items-end text-primary">
-                    {user.role === "admin" && <li><a href="/">Administration</a></li>}
-                    <li><a href="/">Changer de mot de passe</a></li>
+                <span>{greetingLabel}, <b>{user.name}</b> !</span>
+                <ul className="flex flex-col items-start text-primary">
+                    {user.role === "admin" && <li><a href="/">{administrationLabel}</a></li>}
+                    <li><a href="/">{passwordChangeLabel}</a></li>
                 </ul>
-                <Button label="Logout" icon="logout" onClick={onLogout} />
+                <Button className="self-end" label="Logout" icon="logout" onClick={onLogout} />
             </>) : (<>
                 <p>Vous n'êtes pas connecté</p>
-                <Button variant="primary" label="Login" icon="login" onClick={onLogin} />
+                <Button className="self-end" variant="primary" label="Login" icon="login" onClick={onLogin} />
             </>)}
         </div>
     );

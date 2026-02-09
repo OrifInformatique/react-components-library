@@ -10,7 +10,10 @@ const UserMenu = ({
     onLogout = () => {},
     greetingLabel = "Bonjour",
     passwordChangeLabel = "Changer de mot de passe",
-    administrationLabel = "Administration"
+    administrationLabel = "Administration",
+    loginLabel = "Login",
+    logoutLabel = "Logout",
+    notConnectedLabel = "Vous n'êtes pas connecté"
 }) => {
     const ref = useRef(null);
 
@@ -35,10 +38,10 @@ const UserMenu = ({
                     {user.role === "admin" && <li><a href="/">{administrationLabel}</a></li>}
                     <li><a href="/">{passwordChangeLabel}</a></li>
                 </ul>
-                <Button className="self-end" label="Logout" icon="logout" onClick={onLogout} />
+                <Button className="self-end" label={logoutLabel} icon="logout" onClick={onLogout} />
             </>) : (<>
-                <p>Vous n'êtes pas connecté</p>
-                <Button className="self-end" variant="primary" label="Login" icon="login" onClick={onLogin} />
+                <p>{notConnectedLabel}</p>
+                <Button className="self-end" variant="primary" label={loginLabel} icon="login" onClick={onLogin} />
             </>)}
         </div>
     );

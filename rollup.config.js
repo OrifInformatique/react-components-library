@@ -84,7 +84,7 @@ export default {
     postcss({
       plugins: [tailwind(), autoprefixer()],
       extract: 'styles.css',
-      minimize: true,
+      minimize: false, //temp switch to false to check responsivity bug
     }),
 
     // Inliner post-build des icônes référencées par le CSS

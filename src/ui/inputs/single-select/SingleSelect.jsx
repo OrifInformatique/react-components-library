@@ -43,7 +43,7 @@ const SingleSelect = ({
         onChange={handleSingleSelect}
         className={clsx(
           "rounded-md w-full px-2 py-1 border focus:ring-primary focus:border-primary",
-          isDisabled ? "bg-stone-300 cursor-not-allowed" : "bg-background",
+          isDisabled ? "bg-disabled cursor-not-allowed" : "bg-background",
           errors.length > 0 && "border-2 border-solid border-red-500",
           className
         )}

@@ -56,7 +56,7 @@ const Textarea = ({
         className={clsx(
           "rounded-md w-full px-2 py-1",
           resizeClass,
-          disabled ? "bg-stone-300 cursor-not-allowed" : "bg-background",
+          disabled ? "bg-disabled cursor-not-allowed" : "bg-background",
           errors.length > 0 && "border-2 border-red-500",
           className
         )}

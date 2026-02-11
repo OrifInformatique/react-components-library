@@ -52,7 +52,7 @@ const MultiSelect = ({
         }}
         className={clsx(
           "rounded-md w-full min-w-[150px] h-fit px-4 py-2 border border-gray-500 text-center select-none hover:cursor-pointer",
-          isDisabled ? "bg-stone-300 cursor-not-allowed" : "bg-background",
+          isDisabled ? "bg-disabled cursor-not-allowed" : "bg-background",
           errors.length > 0 && "border-2 border-solid border-red-500",
           className
         )}

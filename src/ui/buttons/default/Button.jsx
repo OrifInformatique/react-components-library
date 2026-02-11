@@ -93,7 +93,8 @@ const Button = ({
           disabled:opacity-50
           disabled:cursor-not-allowed
           disabled:hover:before:scale-100
-          disabled:hover:shadow-none`
+          disabled:hover:shadow-none
+          focus:outline-offset-2`
           : "",
         className,
         buttonMode(variant),

@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
 
 import Button from "../buttons/default/Button";
@@ -17,10 +17,13 @@ const UserMenu = ({
 }) => {
     const ref = useRef(null);
 
+    const [isClosing, setIsClosing] = useState(false);
+
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (ref.current && !ref.current.contains(event.target)) {
-                setIsOpen(false);
+                setIsClosing(true);
+                setTimeout(() => setIsOpen(false), 300);
             }
         }
 
@@ -31,7 +34,8 @@ const UserMenu = ({
     }, [setIsOpen]);
 
     return (
-        <div ref={ref} className="absolute flex flex-col items-start gap-2 mt-4 right-2 top-full rounded-md shadow-lg bg-background p-4">
+        <div ref={ref} className={`absolute flex flex-col items-start gap-2 mt-4 right-2 top-full rounded-md shadow-lg bg-background p-4 transition transform duration-300
+                     ${isClosing ? 'animate-fade-out' : 'animate-fade-in'}`} >
             {user ? (<>
                 <span>{greetingLabel}, <b>{user.name}</b> !</span>
                 <ul className="flex flex-col items-start text-primary">

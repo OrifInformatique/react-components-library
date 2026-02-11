@@ -82,9 +82,17 @@ export default {
 
     // CSS Tailwind v4
     postcss({
-      plugins: [tailwind(), autoprefixer()],
+      plugins: [
+        tailwind(),
+        autoprefixer(),
+        cssnano({
+          preset: ['default', {
+            mergeRules: false, //merge disabled to avoid bug with Tailwind CSS when using responsive propriety
+          }],
+        }),
+      ],
       extract: 'styles.css',
-      minimize: false, //temp switch to false to check responsivity bug
+      minimize: false,
     }),
 
     // Inliner post-build des icônes référencées par le CSS

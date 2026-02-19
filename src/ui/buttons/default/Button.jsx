@@ -18,7 +18,7 @@ const Button = ({
       case "primary":
         return "bg-primary text-white before:border-transparent";
       case "secondary":
-        return "bg-white text-primary opacity-120";
+        return "bg-white text-primary";
       case "tertiary":
         return "bg-white text-black";
       case "link":

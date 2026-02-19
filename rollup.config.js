@@ -88,7 +88,7 @@ export default {
         autoprefixer(),
         cssnano({
           preset: ['default', {
-            mergeRules: false, //merge disabled to avoid bug with Tailwind CSS when using responsive propriety
+            mergeRules: false, //merge disabled to avoid bug with Tailwind CSS when using responsive property
           }],
         }),
       ],

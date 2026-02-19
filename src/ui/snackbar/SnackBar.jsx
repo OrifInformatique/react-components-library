@@ -71,7 +71,10 @@ const Snackbar = ({
             handleClose();
         }, autoCloseTimer + 100);
 
-        return () => clearTimeout(timeout);
+        return () => {
+            clearTimeout(timeout);
+            clearInterval(interval);
+        }
     }, [autoCloseTimer]);
 
 

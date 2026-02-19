@@ -5,7 +5,7 @@
 @font-face {
   font-family: "Montserrat";
   src: url("../assets/fonts/montserrat.ttf") format("truetype");
-  font-weight: 100, 200, 300, 400, 500, 600, 700, 800, 900;
+  font-weight: 100 900;
 }
 
 /* Thème du projet (noms strictement identiques) */

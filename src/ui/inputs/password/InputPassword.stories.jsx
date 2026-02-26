@@ -5,7 +5,7 @@ export default {
     component: InputPassword,
     tags: ["autodocs"],
     layout: "fullscreen",
-    args: { label: "Mot de passe :" }
+    args: { label: "Mot de passe" }
 }
 
 export const Default = {

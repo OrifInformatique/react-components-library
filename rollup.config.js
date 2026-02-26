@@ -5,6 +5,7 @@ import esbuild from 'rollup-plugin-esbuild';
 import postcss from 'rollup-plugin-postcss';
 import tailwind from '@tailwindcss/postcss';
 import autoprefixer from 'autoprefixer';
+import cssnano from 'cssnano';
 import del from 'rollup-plugin-delete';
 import { promises as fs } from 'node:fs';
 import { join } from 'node:path';
@@ -82,9 +83,17 @@ export default {
 
     // CSS Tailwind v4
     postcss({
-      plugins: [tailwind(), autoprefixer()],
+      plugins: [
+        tailwind(),
+        autoprefixer(),
+        cssnano({
+          preset: ['default', {
+            mergeRules: false, //merge disabled to avoid bug with Tailwind CSS when using responsive property
+          }],
+        }),
+      ],
       extract: 'styles.css',
-      minimize: true,
+      minimize: false,
     }),
 
     // Inliner post-build des icônes référencées par le CSS

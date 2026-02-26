@@ -16,15 +16,15 @@ const Button = ({
   const buttonMode = (variant) => {
     switch (variant) {
       case "primary":
-        return "bg-primary text-white active:bg-opacity-80";
+        return "bg-primary text-white before:border-transparent";
       case "secondary":
-        return "border border-primary text-primary hover:bg-primary hover:text-white active:bg-opacity-80 active:border-opacity-0";
+        return "bg-white text-primary";
       case "tertiary":
-        return "border border-black border-opacity-60 hover:bg-gray-800 hover:text-white active:bg-gray-600 active:border-opacity-0";
+        return "bg-white text-black";
       case "link":
         return "text-primary font-light hover:underline focus:underline";
       case "danger":
-        return "border border-danger text-danger hover:bg-danger hover:text-white active:bg-opacity-80 active:border-opacity-0";
+        return "bg-white text-danger before:border-danger";
       default:
         return "border border-black border-opacity-60 active:text-gray-700";
     }
@@ -35,11 +35,11 @@ const Button = ({
       case "small":
         return "text-sm";
       case "medium":
-        return "text-md";
+        return "text-base";
       case "large":
         return "text-lg";
       default:
-        return "text-md";
+        return "text-base";
     }
   };
 
@@ -74,9 +74,27 @@ const Button = ({
   return (
     <button
       className={[
-        "group flex justify-center items-center font-semibold",
+        "group flex justify-center items-center font-medium",
         variant !== "link"
-          ? "rounded-sm transition transform duration-300 px-4 py-2 gap-2 hover:scale-105"
+          ? `rounded-sm transition transform duration-300 px-4 py-2 gap-2  
+          relative isolate
+          before:content-[''] 
+          before:absolute 
+          before:inset-0 
+          before:-z-10
+          before:border 
+          before:rounded
+          before:bg-inherit
+          before:transition-all before:duration-300
+          hover:before:scale-105
+          active:before:scale-[1.01]
+          hover:shadow-lg/22
+          active:shadow-lg/14
+          disabled:opacity-50
+          disabled:cursor-not-allowed
+          disabled:hover:before:scale-100
+          disabled:hover:shadow-none
+          focus:outline-offset-2`
           : "",
         className,
         buttonMode(variant),
@@ -86,7 +104,7 @@ const Button = ({
       {...props}
     >
       {icon && (
-        <Icon name={icon} color={iconColor(variant)} size={iconSize(size)} />
+        <Icon name={icon} color={iconColor(variant)} size={iconSize(size)} disableAnimation={true} />
       )}
       {label && (
         <span className={hideTextOnMobile && icon ? "hidden sm:inline" : ""}>

@@ -5,7 +5,7 @@ export default {
     component: InputEmail,
     tags: ["autodocs"],
     layout: "fullscreen",
-    args: { label: "Email :" }
+    args: { label: "Email" }
 }
 
 export const Default = {

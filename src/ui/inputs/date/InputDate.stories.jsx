@@ -6,7 +6,7 @@ export default {
   tags: ["autodocs"],
   layout: "fullscreen",
   args: {
-    label: "Date :"
+    label: "Date"
   }
 };
 

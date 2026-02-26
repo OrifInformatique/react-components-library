@@ -8,8 +8,8 @@ const Label = ({ htmlFor, children, required = false, className = "" }) => {
       {React.Children.map(children, (child, index) =>
         index === 0 && required ? (
           <div className="flex items-center gap-1">
-            <span className="text-danger">*</span>
             {child}
+            <span className="text-danger">*</span>
           </div>
         ) : (
           child

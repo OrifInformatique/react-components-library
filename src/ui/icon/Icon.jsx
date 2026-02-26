@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Icon = ({ name = "home", size = 12, color = "black" }) => {
+const Icon = ({ name = "home", size = 12, color = "black", disableAnimation = false }) => {
     const sizeClasses = {
         4: "size-4",
         6: "size-6",
@@ -15,14 +15,15 @@ const Icon = ({ name = "home", size = 12, color = "black" }) => {
 
     const colorClasses = {
         "white": "text-white",
-        "black": "text-black group-hover:text-white",
-        "primary": "text-primary group-hover:text-white",
-        "danger": "text-danger group-hover:text-white"
+        "black": "text-black group-hover:text-black",
+        "primary": "text-primary group-hover:text-primary",
+        "danger": "text-danger group-hover:text-danger"
     }
 
     const sizeClass = sizeClasses[size] || sizeClasses[12];
     const colorClass = colorClasses[color] || sizeClasses["black"];
-    const className = ["transition transform duration-300 stroke-1 hover:scale-105",
+    const animationClass = disableAnimation ? "" : "hover:scale-105";
+    const className = ["transition transform duration-300 stroke-[1.3]", animationClass,
         colorClass, sizeClass].join(" ");
 
     const icons = {
@@ -198,13 +199,22 @@ const Icon = ({ name = "home", size = 12, color = "black" }) => {
             <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" d="m5.25 4.5 7.5 7.5-7.5 7.5m6-15 7.5 7.5-7.5 7.5" />
             </svg>
+        ),
+        "exclamation-triangle": (
+            <svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126ZM12 15.75h.007v.008H12v-.008Z" />
+            </svg>),
+        "exclamation-circle": (<svg className={className} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v3.75m9-.75a9 9 0 1 1-18 0 9 9 0 0 1 18 0Zm-9 3.75h.008v.008H12v-.008Z" />
+        </svg>
         )
     }
 
     Icon.propTypes = {
         name: PropTypes.oneOf(Object.keys(icons)),
         size: PropTypes.oneOf(Object.keys(sizeClasses)),
-        color: PropTypes.oneOf(Object.keys(colorClasses))
+        color: PropTypes.oneOf(Object.keys(colorClasses)),
+        disableAnimation: PropTypes.bool
     }
 
     const iconSvg = icons[name] || icons["home"];

@@ -57,3 +57,34 @@ export const LoggedOut = {
         setIsOpen: fn()
     }
 }
+
+export const FrenchLoggedIn = {
+    render: (args) => (
+        <div class="relative flex justify-end">
+            <a
+                href="#"
+                onClick={(e) => {
+                    e.preventDefault();
+                    setIsOpen(prev => !prev);
+                }}
+            >
+                <Icon name="user" />
+            </a>
+            <UserMenu {...args} />
+        </div>
+    ),
+    args: {
+        user: {
+            name: "John Doe",
+            role: "admin"
+        },
+        isOpen: true,
+        setIsOpen: fn(),
+        greetingLabel: "Bonjour",
+        passwordChangeLabel: "Changer le mot de passe",
+        administrationLabel: "Administration",
+        loginLabel: "Se connecter",
+        logoutLabel: "Se déconnecter",
+        notConnectedLabel: "Vous n'êtes pas connecté"
+    }
+}

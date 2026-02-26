@@ -8,12 +8,12 @@ const UserMenu = ({
     setIsOpen,
     onLogin = () => {},
     onLogout = () => {},
-    greetingLabel = "Bonjour",
-    passwordChangeLabel = "Changer de mot de passe",
+    greetingLabel = "Hello",
+    passwordChangeLabel = "Update Password",
     administrationLabel = "Administration",
     loginLabel = "Login",
     logoutLabel = "Logout",
-    notConnectedLabel = "Vous n'êtes pas connecté"
+    notConnectedLabel = "You are not connected"
 }) => {
     const ref = useRef(null);
 

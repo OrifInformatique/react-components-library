@@ -9,8 +9,8 @@ import UserMenu from "../user-menu/UserMenu";
 const Header = ({
   user = null,
   title = null,
-  greetingLabel = "Bonjour",
-  passwordChangeLabel = "Changer de mot de passe",
+  greetingLabel = "Hello",
+  passwordChangeLabel = "Update Password",
   administrationLabel = "Administration",
   logoPath,
   onLogin = () => {},

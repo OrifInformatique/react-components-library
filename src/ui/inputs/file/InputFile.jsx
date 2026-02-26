@@ -10,7 +10,7 @@ const InputFile = ({
   accept = "",
   disabled = false,
   required = false,
-  buttonLabel = "Parcourir",
+  buttonLabel = "Browse",
   onChange = () => { }
 }) => {
   const [fileName, setFileName] = useState("");

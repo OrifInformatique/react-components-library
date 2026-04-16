@@ -245,6 +245,11 @@ npm publish --access public
 npm whoami
 ```
 
+If you're not logged in, run :
+```bash
+npm login
+```
+
 ---
 
 ## Conventions

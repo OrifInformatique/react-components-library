@@ -1,28 +1,9 @@
 import React from 'react';
 
 import Button from '../buttons/default/Button';
-import PopUp from '../popups/PopUp';
+import PopUp from '../pop-up/PopUp';
 import PropTypes from 'prop-types';
 
-/**
- * A generic list/table component that dynamically generates columns
- * from the keys of the provided items.
- *
- * @param {Object} props
- * @param {Array<Object>} props.items - The array of objects to display.
- * @param {Object} [props.actions] - Optional action config keyed by action name.
- *   Each action is { permission?: string, onClick?: (item) => void }.
- *   Supported keys: edit, delete, restore, hardDelete, viewDeleted, view.
- * @param {function} [props.hasPermission] - Permission check function (permission) => boolean.
- * @param {Array<string>} [props.columns] - Optional subset/order of columns to display.
- *   If omitted, all keys from the first item are used.
- * @param {Object} [props.columnLabels] - Optional map of key -> display header label.
- * @param {boolean} [props.showDeleted] - Whether to show soft-deleted items.
- * @param {function} [props.onToggleShowDeleted] - Callback when the show-deleted checkbox changes.
- * @param {string} [props.actionsLabel] - Optional label for the actions column.
- * @param {string} [props.showDeletedLabel] - Optional label for the show deleted checkbox.
- * @param {string} [props.noItemsLabel] - Optional label for when there are no items.
- */
 const List = ({
     items = [],
     actions = {},

@@ -51,7 +51,7 @@ export const WithSpecifiedColumns = {
     args: {
         items: sampleItems,
         columns: ["id", "name", "author", "description"],
-        columnLabels: {
+        columnsLabels: {
             id: "#",
             name: "Name",
             author: "Author",
@@ -65,7 +65,7 @@ export const WithActions = {
     args: {
         items: sampleItems,
         columns: ["id", "name", "author"],
-        columnLabels: { id: "#", name: "Name", author: "Author" },
+        columnsLabels: { id: "#", name: "Name", author: "Author" },
         actions: allActions,
         actionsLabel: "Actions",
         hasPermission: () => true,
@@ -90,13 +90,13 @@ export const WithDeletedItems = {
     args: {
         items: sampleItemsWithDeleted,
         columns: ["id", "name", "author", "description"],
-        columnLabels: { id: "#", name: "Name", author: "Author", description: "Description" },
+        columnsLabels: { id: "#", name: "Name", author: "Author", description: "Description" },
         actions: allActions,
         actionsLabel: "Actions",
         showDeletedLabel: "Show deleted items",
         hasPermission: () => true,
-        confirmHardDeleteLabel: "Confirm Permanent Deletion",
-        confirmHardDeleteLabelText: "Are you sure you want to permanently delete this item? This action cannot be undone.",
+        confirmHardDeleteTitle: "Confirm Permanent Deletion",
+        confirmHardDeleteText: "Are you sure you want to permanently delete this item? This action cannot be undone.",
     },
 };
 
@@ -105,7 +105,7 @@ export const ReadOnly = {
     args: {
         items: sampleItems,
         columns: ["id", "name", "author", "description", "createdAt", "updatedAt"],
-        columnLabels: {
+        columnsLabels: {
             id: "#",
             name: "Name",
             author: "Author",
@@ -125,7 +125,7 @@ export const LimitedPermissions = {
     args: {
         items: sampleItems,
         columns: ["id", "name", "author"],
-        columnLabels: { id: "#", name: "Name", author: "Author" },
+        columnsLabels: { id: "#", name: "Name", author: "Author" },
         actions: allActions,
         actionsLabel: "Actions",
         hasPermission: (perm) => perm === "user:read",

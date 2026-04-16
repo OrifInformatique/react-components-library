@@ -8,14 +8,14 @@ const List = ({
     items = [],
     actions = {},
     columns,
-    columnLabels = {},
+    columnsLabels = {},
     showDeleted = false,
     onToggleShowDeleted,
     actionsLabel,
     showDeletedLabel,
     noItemsLabel,
-    confirmHardDeleteLabel,
-    confirmHardDeleteLabelText,
+    confirmHardDeleteTitle,
+    confirmHardDeleteText,
     hasPermission = () => true,
 }) => {
     const [hardDeleteTarget, setHardDeleteTarget] = React.useState(null);
@@ -56,7 +56,7 @@ const List = ({
                                 key={col}
                                 className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                             >
-                                {columnLabels[col] ?? col}
+                                {columnsLabels[col] ?? col}
                             </th>
                         ))}
                         {hasVisibleActions && (
@@ -149,7 +149,7 @@ const List = ({
                                                                 item.id && (
                                                                 <PopUp
                                                                     title={
-                                                                        confirmHardDeleteLabel
+                                                                        confirmHardDeleteTitle
                                                                     }
                                                                     onClose={() =>
                                                                         setHardDeleteTarget(
@@ -159,7 +159,7 @@ const List = ({
                                                                 >
                                                                     <p className="whitespace-normal break-words text-left">
                                                                         {
-                                                                            confirmHardDeleteLabelText
+                                                                            confirmHardDeleteText
                                                                         }
                                                                     </p>
                                                                     <div className="flex justify-end gap-2 mt-4">
@@ -212,14 +212,14 @@ List.propTypes = {
         }),
     ),
     columns: PropTypes.arrayOf(PropTypes.string),
-    columnLabels: PropTypes.objectOf(PropTypes.string),
+    columnsLabels: PropTypes.objectOf(PropTypes.string),
     showDeleted: PropTypes.bool,
     onToggleShowDeleted: PropTypes.func,
     actionsLabel: PropTypes.string,
     showDeletedLabel: PropTypes.string,
     noItemsLabel: PropTypes.string,
-    confirmHardDeleteLabel: PropTypes.string,
-    confirmHardDeleteLabelText: PropTypes.string,
+    confirmHardDeleteTitle: PropTypes.string,
+    confirmHardDeleteText: PropTypes.string,
     hasPermission: PropTypes.func,
 };
 

@@ -17,6 +17,7 @@ const List = ({
     confirmHardDeleteTitle,
     confirmHardDeleteText,
     hasPermission = () => true,
+    isDeletedKey = 'isDeleted',
 }) => {
     const [hardDeleteTarget, setHardDeleteTarget] = React.useState(null);
 
@@ -86,7 +87,7 @@ const List = ({
                                 {cols.map((col) => (
                                     <td
                                         key={col}
-                                        className={`px-6 py-4 text-sm text-gray-900 ${item.isDeleted ? 'line-through text-gray-400' : ''} ${canView ? 'cursor-pointer hover:underline' : ''}`}
+                                        className={`px-6 py-4 text-sm text-gray-900 ${item[isDeletedKey] ? 'line-through text-gray-400' : ''} ${canView ? 'cursor-pointer hover:underline' : ''}`}
                                         onClick={
                                             canView ?
                                                 () => actions.view.onClick(item)
@@ -99,7 +100,7 @@ const List = ({
                                 {hasVisibleActions && (
                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium align-middle">
                                         <div className="flex justify-end items-center gap-2">
-                                            {canEdit && !item.isDeleted && (
+                                            {canEdit && !item[isDeletedKey] && (
                                                 <Button
                                                     variant="secondary"
                                                     icon="edit"
@@ -110,7 +111,7 @@ const List = ({
                                                     }
                                                 />
                                             )}
-                                            {canDelete && !item.isDeleted && (
+                                            {canDelete && !item[isDeletedKey] && (
                                                 <Button
                                                     variant="secondary"
                                                     icon="delete"
@@ -121,7 +122,7 @@ const List = ({
                                                     }
                                                 />
                                             )}
-                                            {canRestore && item.isDeleted && (
+                                            {canRestore && item[isDeletedKey] && (
                                                 <Button
                                                     variant="secondary"
                                                     icon="restore"
@@ -133,7 +134,7 @@ const List = ({
                                                 />
                                             )}
                                             {canHardDelete &&
-                                                item.isDeleted && (
+                                                item[isDeletedKey] && (
                                                     <>
                                                         <Button
                                                             variant="danger"
@@ -221,6 +222,7 @@ List.propTypes = {
     confirmHardDeleteTitle: PropTypes.string,
     confirmHardDeleteText: PropTypes.string,
     hasPermission: PropTypes.func,
+    deletedKey: PropTypes.string,
 };
 
 export default List;

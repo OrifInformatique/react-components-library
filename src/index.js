@@ -41,7 +41,8 @@ export { default as SingleSelect } from './ui/inputs/single-select/SingleSelect'
 export { default as Textarea } from './ui/inputs/textarea/TextArea';
 export { default as InputHidden } from './ui/inputs/hidden/InputHidden';
 
-
+// List
+export { default as List} from './ui/list/List'
 
 // Label
 export { default as Label } from './ui/label/Label';

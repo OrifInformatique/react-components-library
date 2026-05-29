@@ -6,7 +6,7 @@ const SubTitle = ({
     subTitle = "My subtitle"
 }) => {
     return (
-        <p className="font-bold text-3xl md:mb-0 md:mr-10">{subTitle}</p>
+        <p className="font-bold text-2xl md:mb-0 md:mr-10">{subTitle}</p>
     );
 };
 
@@ -15,3 +15,4 @@ SubTitle.PropTypes = {
 };
 
 export default SubTitle;
+  

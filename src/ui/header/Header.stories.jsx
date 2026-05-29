@@ -8,6 +8,7 @@ export default {
     layout: "fullscreen",
     args: {
         title: "App title",
+        showAdminMenu:true,
         onLogin: fn(),
         onLogout: fn(),
         onAccountClick: fn()

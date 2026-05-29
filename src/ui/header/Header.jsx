@@ -10,6 +10,7 @@ const Header = ({
   user = null,
   title = null,
   greetingLabel = "Hello",
+  showAdminMenu = false,
   passwordChangeLabel = "Update Password",
   administrationLabel = "Administration",
   logoPath,
@@ -38,7 +39,7 @@ const Header = ({
                     </a>
                 </div>
                 {isOpen && (
-                    <UserMenu user={user} setIsOpen={setIsOpen} onLogin={onLogin} onLogout={onLogout} greetingLabel={greetingLabel} passwordChangeLabel={passwordChangeLabel} administrationLabel={administrationLabel} />
+                    <UserMenu showAdminMenu={showAdminMenu} user={user} setIsOpen={setIsOpen} onLogin={onLogin} onLogout={onLogout} greetingLabel={greetingLabel} passwordChangeLabel={passwordChangeLabel} administrationLabel={administrationLabel} />
                 )}
             </div>
         </header>
@@ -47,8 +48,7 @@ const Header = ({
 
 Header.propTypes = {
     user: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        role: PropTypes.oneOf(["admin", "user"]).isRequired
+        name: PropTypes.string.isRequired
     }),
     title: PropTypes.string,
     logoPath: PropTypes.string.isRequired,

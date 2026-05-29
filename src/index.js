@@ -4,8 +4,6 @@ import './index.css';
 // UI
 export { default as Link } from './ui/link';
 export { default as Logo } from './ui/logo';
-//export { default as Title } from './ui/title_old.jsx';
-
 
 // Buttons
 export { default as DefaultButton } from "./ui/buttons/default/Button.jsx";   // <— alias

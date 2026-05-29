@@ -2,16 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 
-const Title = ({
-    title = "My title"
-}) => {
+const Title = ({ children })=> {
     return (
-        <p className="font-bold text-3xl md:mb-0 md:mr-10">{title}</p>
+        <p className="font-bold text-3xl md:mb-0 md:mr-10">{children}</p>
     );
 }
 
-Title.PropTypes = {
-    title: PropTypes.string.isRequired
+Title.propTypes = {
+    children: PropTypes.node.isRequired
 };
 
 export default Title;

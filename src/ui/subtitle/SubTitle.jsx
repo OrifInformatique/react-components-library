@@ -2,16 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 
-const SubTitle = ({
-    subTitle = "My subtitle"
-}) => {
+const SubTitle = ({children}) => {
     return (
-        <p className="font-bold text-2xl md:mb-0 md:mr-10">{subTitle}</p>
+        <p className="font-bold text-2xl md:mb-0 md:mr-10">{children}</p>
     );
 };
 
-SubTitle.PropTypes = {
-    subTitle: PropTypes.string.isRequired
+SubTitle.propTypes = {
+    children: PropTypes.node.isRequired
 };
 
 export default SubTitle;

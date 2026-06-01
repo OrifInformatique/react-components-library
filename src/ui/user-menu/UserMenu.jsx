@@ -56,6 +56,7 @@ UserMenu.propTypes = {
     user: PropTypes.shape({
         name: PropTypes.string.isRequired,
     }),
+    showAdminMenu: PropTypes.bool.isRequired,
     setIsOpen: PropTypes.func.isRequired,
     onLogin: PropTypes.func,
     onLogout: PropTypes.func

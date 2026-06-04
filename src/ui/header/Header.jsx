@@ -50,6 +50,7 @@ Header.propTypes = {
     user: PropTypes.shape({
         name: PropTypes.string.isRequired
     }),
+    showAdminMenu: PropTypes.bool.isRequired,
     title: PropTypes.string,
     logoPath: PropTypes.string.isRequired,
     childElement: PropTypes.element,

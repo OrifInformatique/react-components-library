@@ -8,6 +8,9 @@ export default {
     tags: ["autodocs"],
     parameters: {
         layout: "fullscreen"
+    },
+    args: {
+        showAdminMenu:false
     }
 }
 
@@ -28,9 +31,9 @@ export const LoggedIn = {
     ),
     args: {
         user: {
-            name: "John Doe",
-            role: "admin"
+            name: "John Doe"
         },
+        showAdminMenu:false,
         isOpen: true,
         setIsOpen: fn()
     }
@@ -54,6 +57,7 @@ export const LoggedOut = {
     args: {
         user: null,
         isOpen: true,
+        showAdminMenu:false,
         setIsOpen: fn()
     }
 }
@@ -75,9 +79,9 @@ export const FrenchLoggedIn = {
     ),
     args: {
         user: {
-            name: "John Doe",
-            role: "admin"
+            name: "John Doe"
         },
+        showAdminMenu:false,
         isOpen: true,
         setIsOpen: fn(),
         greetingLabel: "Bonjour",
@@ -86,5 +90,30 @@ export const FrenchLoggedIn = {
         loginLabel: "Se connecter",
         logoutLabel: "Se déconnecter",
         notConnectedLabel: "Vous n'êtes pas connecté"
+    }
+}
+
+export const ShownAdminMenu = {
+    render: (args) => (
+        <div class="relative flex justify-end">
+            <a
+                href="#"
+                onClick={(e) => {
+                    e.preventDefault();
+                    setIsOpen(prev => !prev);
+                }}
+            >
+                <Icon name="user" />
+            </a>
+            <UserMenu {...args} />
+        </div>
+    ),
+    args: {
+        user: {
+            name: "John Doe"
+        },
+        showAdminMenu:true,
+        isOpen: true,
+        setIsOpen: fn()
     }
 }

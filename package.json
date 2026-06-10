@@ -61,7 +61,8 @@
     "rollup-plugin-postcss": "^4.0.2",
     "storybook": "^10.4.2",
     "tailwindcss": "^4.3.0",
-    "vite": "^8.0.16"
+    "vite": "^8.0.16",
+    "vitest": "^4.1.8"
   },
   "license": "MIT",
   "publishConfig": {

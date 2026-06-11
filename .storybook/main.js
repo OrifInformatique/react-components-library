@@ -6,13 +6,9 @@ export default {
     "../src/**/*.mdx",
     "../src/**/*.stories.@(js|jsx|ts|tsx)"
   ],
+
   framework: "@storybook/react-vite",
-  addons: [
-    "@storybook/addon-essentials",
-    "@storybook/addon-a11y",
-    "@storybook/addon-interactions"
-  ],
-  docs: { autodocs: true },
+  addons: ["@storybook/addon-a11y", "@storybook/addon-docs"],
 
   async viteFinal(config) {
     // S'assurer que esbuild traite les fichiers .js comme JSX

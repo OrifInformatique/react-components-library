@@ -46,6 +46,8 @@ export const AllIcons = (args) => (
         <Icon {...args} name="chevron-right" />
         <Icon {...args} name="chevron-double-left" />
         <Icon {...args} name="chevron-double-right" />
+        <Icon {...args} name="exclamation-triangle" />
+        <Icon {...args} name="exclamation-circle" />
     </div>
 );
 

@@ -4,8 +4,6 @@ import './index.css';
 // UI
 export { default as Link } from './ui/link';
 export { default as Logo } from './ui/logo';
-export { default as Title } from './ui/title';
-
 
 // Buttons
 export { default as DefaultButton } from "./ui/buttons/default/Button.jsx";   // <— alias
@@ -52,6 +50,12 @@ export { default as PopUp } from './ui/pop-up/PopUp';
 
 // SnackBar
 export { default as SnackBar } from './ui/snackbar/SnackBar';
+
+// Title
+export { default as Title } from './ui/title/Title';
+
+// SubTitle
+export { default as SubTitle } from './ui/subtitle/SubTitle';
 
 // UserMenu
 export { default as UserMenu } from './ui/user-menu/UserMenu';

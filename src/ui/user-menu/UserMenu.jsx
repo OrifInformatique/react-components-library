@@ -9,6 +9,7 @@ const UserMenu = ({
     onLogin = () => {},
     onLogout = () => {},
     greetingLabel = "Hello",
+    showAdminMenu = false,
     passwordChangeLabel = "Update Password",
     administrationLabel = "Administration",
     loginLabel = "Login",
@@ -39,7 +40,7 @@ const UserMenu = ({
             {user ? (<>
                 <span>{greetingLabel}, <b>{user.name}</b> !</span>
                 <ul className="flex flex-col items-start text-primary">
-                    {user.role === "admin" && <li><a href="/">{administrationLabel}</a></li>}
+                    {showAdminMenu === true && <li><a href="/">{administrationLabel}</a></li>}
                     <li><a href="/">{passwordChangeLabel}</a></li>
                 </ul>
                 <Button className="self-end" label={logoutLabel} icon="logout" onClick={onLogout} />
@@ -54,8 +55,8 @@ const UserMenu = ({
 UserMenu.propTypes = {
     user: PropTypes.shape({
         name: PropTypes.string.isRequired,
-        role: PropTypes.oneOf(["admin", "user"]).isRequired
     }),
+    showAdminMenu: PropTypes.bool.isRequired,
     setIsOpen: PropTypes.func.isRequired,
     onLogin: PropTypes.func,
     onLogout: PropTypes.func

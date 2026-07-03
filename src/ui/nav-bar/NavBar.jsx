@@ -15,7 +15,10 @@ const NavBar = ({
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <nav aria-label={ariaLabel} className={clsx("border-b border-primary py-6 px-2", className)}>
+    <nav
+      aria-label={ariaLabel}
+      className={clsx("border-b border-primary py-6 px-2", className)}
+    >
       <button
         aria-label={menuButtonLabel}
         className="md:hidden"
@@ -24,7 +27,12 @@ const NavBar = ({
       >
         <Icon name="burger" />
       </button>
-      <ul className={clsx("flex-col md:flex-row md:flex gap-4", isOpen ? "flex" : "hidden")}>
+      <ul
+        className={clsx(
+          "flex-col md:flex-row md:flex gap-4",
+          isOpen ? "flex" : "hidden",
+        )}
+      >
         {links.map((link) => (
           <li key={link.to}>
             <NavLink

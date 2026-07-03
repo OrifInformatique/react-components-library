@@ -7,15 +7,51 @@ export default {
   tags: ["autodocs"],
   layout: "fullscreen",
   decorators: [
+    // NavLink needs a router to work. We wrap every story in a MemoryRouter.
+    // A story can set the "current page" via parameters.initialEntries.
     (Story, { parameters }) => (
       <MemoryRouter initialEntries={parameters.initialEntries || ["/"]}>
         <Story />
       </MemoryRouter>
     ),
   ],
+  // Shared default data: most stories only need to override what they demonstrate.
+  args: {
+    links: [
+      { label: "Accueil", to: "/" },
+      { label: "Utilisateurs", to: "/users" },
+      { label: "Paramètres", to: "/settings" },
+    ],
+  },
+  // Nice, self-documenting controls that mirror the component API.
+  argTypes: {
+    burgerPosition: {
+      control: "inline-radio",
+      options: ["left", "right"],
+      description: "Position du bouton burger (visible sur mobile)",
+    },
+    linksAlign: {
+      control: "inline-radio",
+      options: ["start", "center", "end"],
+      description: "Alignement des liens sur desktop",
+    },
+    links: { control: "object" },
+    ariaLabel: { control: "text" },
+    menuButtonLabel: { control: "text" },
+    className: { control: "text" },
+    buttonClassName: { control: "text" },
+    listClassName: { control: "text" },
+    linkClassName: { control: "text" },
+    activeLinkClassName: { control: "text" },
+  },
 };
 
-// 1. "Regular user" case: few links
+/* -------------------------------------------------------------------------- */
+/* Data-driven stories: SAME component, different data                        */
+/* -> proves the NavBar is "dumb" and role-agnostic.                          */
+/* -------------------------------------------------------------------------- */
+
+// "Regular user" case: few links.
 export const UserMenu = {
   args: {
     links: [
@@ -25,8 +61,7 @@ export const UserMenu = {
   },
 };
 
-// 2. "Administrator" case: more links.
-//    SAME component, different data -> proves it is role-agnostic.
+// "Administrator" case: more links. The consumer built this list from the role.
 export const AdminMenu = {
   args: {
     links: [
@@ -38,22 +73,21 @@ export const AdminMenu = {
   },
 };
 
-// 3. Single link: minimal case
+// Single link: minimal case.
 export const SingleLink = {
   args: {
     links: [{ label: "Accueil", to: "/" }],
   },
 };
 
-// 4. Empty list: edge case. The component must NOT crash,
-//    it should just render a bar with no links.
+// Empty list: edge case. The component must NOT crash, just render an empty bar.
 export const NoLinks = {
   args: {
     links: [],
   },
 };
 
-// 5. Many links + long labels: responsive stress test
+// Many links + long labels: responsive stress test (they should wrap).
 export const ManyLinks = {
   args: {
     links: [
@@ -67,16 +101,46 @@ export const ManyLinks = {
   },
 };
 
-// 6. Active link: demonstrates the isActive style of the NavLink.
-//    We force the "current page" to /users via the initialEntries
-//    parameter, which the global MemoryRouter decorator reads.
+// Active link: shows the isActive style of the NavLink.
+// We force the "current page" to /users via initialEntries.
 export const ActiveLink = {
-  args: {
-    links: [
-      { label: "Accueil", to: "/" },
-      { label: "Utilisateurs", to: "/users" },
-      { label: "Paramètres", to: "/settings" },
-    ],
-  },
   parameters: { initialEntries: ["/users"] },
+};
+
+/* -------------------------------------------------------------------------- */
+/* Layout stories: the enum props (burgerPosition, linksAlign)                */
+/* -------------------------------------------------------------------------- */
+
+// Links aligned to the start (left) on desktop.
+export const LinksAlignStart = {
+  args: { linksAlign: "start" },
+};
+
+// Links aligned to the end (right) on desktop.
+export const LinksAlignEnd = {
+  args: { linksAlign: "end" },
+};
+
+// Burger on the left. NOTE: only visible on a NARROW viewport
+// (the burger is hidden from the "md" breakpoint up). Shrink the
+// Storybook canvas to see it move.
+export const BurgerLeft = {
+  args: { burgerPosition: "left" },
+};
+
+/* -------------------------------------------------------------------------- */
+/* Styling story: the className slots (fully re-skinnable from outside)       */
+/* -------------------------------------------------------------------------- */
+
+// Demonstrates that every part can be restyled via className slots,
+// without a single CSS-property-specific prop.
+export const CustomStyle = {
+  parameters: { initialEntries: ["/users"] },
+  args: {
+    className: "bg-slate-900 px-8 py-4",
+    linkClassName: "text-white",
+    activeLinkClassName: "text-amber-400 font-bold underline",
+    buttonClassName: "text-white",
+    listClassName: "gap-8",
+  },
 };

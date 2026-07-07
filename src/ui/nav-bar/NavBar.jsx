@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useId } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
 import clsx from "clsx";
@@ -19,6 +19,7 @@ const NavBar = ({
   activeLinkClassName = "underline text-primary", // active link
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const menuId = useId();
 
   // Burger Position on Mobile Devices
   const burgerAlignment = (position) => {
@@ -71,13 +72,13 @@ const NavBar = ({
         aria-label={menuButtonLabel}
         className={clsx("md:hidden", buttonClassName)}
         aria-expanded={isOpen}
-        aria-controls="navbar-menu"
+        aria-controls={menuId}
         onClick={() => setIsOpen((prev) => !prev)}
       >
         <Icon name="burger" size="8" />
       </button>
       <ul
-        id="navbar-menu"
+        id={menuId}
         className={clsx(
           "w-full md:w-auto flex-col md:flex-row md:flex gap-4",
           listClassName,

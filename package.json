@@ -2,6 +2,7 @@
   "name": "@orif-informatique/react-components-library",
   "version": "1.4.0",
   "private": false,
+  "homepage": "https://orifinformatique.github.io/react-components-library/",
   "type": "module",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",

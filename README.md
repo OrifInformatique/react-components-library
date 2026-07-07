@@ -84,78 +84,10 @@ function Example() {
 
 ## Available Components
 
-The library provides a set of reusable UI components and form inputs.  
-Below is the full list with a short description for each.
+The library provides a set of reusable UI components and form inputs.
 
----
+Follow this Storybook link for details : [Storybook](https://orifinformatique.github.io/react-components-library/)
 
-
-### **Buttons**
-- **DefaultButton** – Standard button with multiple variants (`primary`, `secondary`, `tertiary`, `danger`).  
-- **ScrollToTopButton** – Floating utility button that scrolls the page back to the top.
-
----
-
-### **Footer**
-- **Footer** – Application footer layout component.
-
----
-
-### **Header**
-- **Header** – Application header/navigation bar.
-
----
-
-### **Icon**
-- **Icon** – Generic SVG icon component supporting multiple sizes and names.
-
----
-
-### **Image**
-- **Image** – Wrapper for optimized image rendering.
-
----
-
-### **Inputs**
-A wide range of controlled form input components, styled consistently.
-
-- **InputCheckbox** – Checkbox input with label support.  
-- **ColorChange** – Color picker input.  
-- **InputDate** – Date picker input.  
-- **InputEmail** – Email input with validation.  
-- **InputFile** – File upload input with custom button trigger.  
-- **InputHidden** – Hidden field for form usage.  
-- **InputImage** – Image upload input.  
-- **InputMultiSelect** – Multi-select dropdown.  
-- **InputNumber** – Numeric input with validation.  
-- **InputPassword** – Password input with masking.  
-- **InputRadio** – Radio button group.  
-- **InputSearch** – Search input with built-in clear option.  
-- **InputSingleSelect** – Single-select dropdown.  
-- **InputText** – Standard text input.  
-- **InputTextarea** – Multi-line text input.
-
----
-
-### **Label**
-- **Label** – Styled label for form fields.
-
----
-
-### **PopUp**
-- **PopUp** – Modal popup component, supports title, description, and action buttons.
-
----
-
-### **Snackbar**
-- **SnackBar** – Temporary message/notification toast.
-
----
-
-### **User Menu**
-- **UserMenu** – Dropdown menu for authenticated user actions.
-
----
 
 ## Development
 

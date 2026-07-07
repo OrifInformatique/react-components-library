@@ -235,10 +235,6 @@ npm run build
 
 2. Publish to npm:
 
-```bash
-npm publish --access public
-```
-
 ⚠️ Make sure you are logged in to the correct npm account before publishing:
 
 ```bash
@@ -248,6 +244,11 @@ npm whoami
 If you're not logged in, run :
 ```bash
 npm login
+```
+
+To publish, run
+```bash
+npm publish --access public
 ```
 
 ---

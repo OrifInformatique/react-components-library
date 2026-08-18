@@ -1,11 +1,19 @@
 import Header from "./Header";
-import { fn } from "storybook/test";
+import { MemoryRouter } from "react-router-dom";
+import { fn } from "@storybook/test";
 
 export default {
     title: "Components/UI/Header",
     component: Header,
     tags: ["autodocs"],
     layout: "fullscreen",
+    decorators: [
+        (Story) => (
+            <MemoryRouter>
+                <Story />
+            </MemoryRouter>
+        )
+    ],
     args: {
         title: "App title",
         onLogin: fn(),

@@ -1,4 +1,5 @@
-import { fn } from "@vitest/spy";
+import { fn } from "@storybook/test";
+import { MemoryRouter } from "react-router-dom";
 import UserMenu from "./UserMenu";
 import Icon from "../icon/Icon";
 
@@ -9,6 +10,13 @@ export default {
     parameters: {
         layout: "fullscreen"
     },
+    decorators: [
+        (Story) => (
+            <MemoryRouter>
+                <Story />
+            </MemoryRouter>
+        )
+    ],
     args: {
         showAdminMenu:false
     }

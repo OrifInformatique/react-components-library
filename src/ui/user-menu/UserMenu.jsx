@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { useNavigate } from "react-router-dom";
 
 import Button from "../buttons/default/Button";
 
@@ -12,12 +13,13 @@ const UserMenu = ({
     showAdminMenu = false,
     passwordChangeLabel = "Update Password",
     administrationLabel = "Administration",
+    administrationPath = "/admin",
     loginLabel = "Login",
     logoutLabel = "Logout",
     notConnectedLabel = "You are not connected"
 }) => {
     const ref = useRef(null);
-
+    const navigate = useNavigate();
     const [isClosing, setIsClosing] = useState(false);
 
     useEffect(() => {
@@ -40,7 +42,7 @@ const UserMenu = ({
             {user ? (<>
                 <span>{greetingLabel}, <b>{user.name}</b> !</span>
                 <ul className="flex flex-col items-start text-primary">
-                    {showAdminMenu === true && <li><a href="/">{administrationLabel}</a></li>}
+                    {showAdminMenu === true && <li><Link to={administrationPath}>{administrationLabel}</Link></li>}
                     <li><a href="/">{passwordChangeLabel}</a></li>
                 </ul>
                 <Button className="self-end" label={logoutLabel} icon="logout" onClick={onLogout} />

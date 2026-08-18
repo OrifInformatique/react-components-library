@@ -13,6 +13,7 @@ const Header = ({
   showAdminMenu = false,
   passwordChangeLabel = "Update Password",
   administrationLabel = "Administration",
+  administrationPath = "/admin",
   logoPath,
   onLogin = () => {},
   onLogout = () => {},
@@ -39,7 +40,7 @@ const Header = ({
                     </a>
                 </div>
                 {isOpen && (
-                    <UserMenu showAdminMenu={showAdminMenu} user={user} setIsOpen={setIsOpen} onLogin={onLogin} onLogout={onLogout} greetingLabel={greetingLabel} passwordChangeLabel={passwordChangeLabel} administrationLabel={administrationLabel} />
+                    <UserMenu showAdminMenu={showAdminMenu} user={user} setIsOpen={setIsOpen} onLogin={onLogin} onLogout={onLogout} greetingLabel={greetingLabel} passwordChangeLabel={passwordChangeLabel} administrationLabel={administrationLabel} administrationPath={administrationPath} />
                 )}
             </div>
         </header>

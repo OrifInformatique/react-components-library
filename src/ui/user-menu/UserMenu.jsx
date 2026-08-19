@@ -1,5 +1,6 @@
 import React, { useRef, useEffect, useState } from "react";
 import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
 
 import Button from "../buttons/default/Button";
 
@@ -11,13 +12,14 @@ const UserMenu = ({
     greetingLabel = "Hello",
     showAdminMenu = false,
     passwordChangeLabel = "Update Password",
+    passwordChangePath = "/change-password",
     administrationLabel = "Administration",
+    administrationPath = "/admin",
     loginLabel = "Login",
     logoutLabel = "Logout",
     notConnectedLabel = "You are not connected"
 }) => {
     const ref = useRef(null);
-
     const [isClosing, setIsClosing] = useState(false);
 
     useEffect(() => {
@@ -40,8 +42,8 @@ const UserMenu = ({
             {user ? (<>
                 <span>{greetingLabel}, <b>{user.name}</b> !</span>
                 <ul className="flex flex-col items-start text-primary">
-                    {showAdminMenu === true && <li><a href="/">{administrationLabel}</a></li>}
-                    <li><a href="/">{passwordChangeLabel}</a></li>
+                    {showAdminMenu === true && <li><Link to={administrationPath}>{administrationLabel}</Link></li>}
+                    <li><Link to={passwordChangePath}>{passwordChangeLabel}</Link></li>
                 </ul>
                 <Button className="self-end" label={logoutLabel} icon="logout" onClick={onLogout} />
             </>) : (<>

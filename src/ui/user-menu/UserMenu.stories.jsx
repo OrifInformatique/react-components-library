@@ -1,4 +1,4 @@
-import { fn } from "@storybook/test";
+import { fn } from "storybook/test";
 import { MemoryRouter } from "react-router-dom";
 import UserMenu from "./UserMenu";
 import Icon from "../icon/Icon";

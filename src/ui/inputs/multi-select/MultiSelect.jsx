@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import clsx from "clsx";
 import Label from "../../label/Label";
 
@@ -20,11 +20,26 @@ const MultiSelect = ({
     return;
   }
 
+  const wrapperRef = useRef(null);
   const [selectedCount, setSelectedCount] = useState(0);
   const [selectedOptions, setSelectedOptions] = useState(defaultValues);
   const [isOpen, setIsOpen] = useState(false);
 
   const isDisabled = disabled || options.length < 1;
+
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
+        setIsOpen(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isOpen]);
 
   const handleSelectedOptions = (value) => {
     if (onChangeFunction) {
@@ -45,7 +60,7 @@ const MultiSelect = ({
   useEffect(() => setSelectedCount(selectedOptions.length), [selectedOptions]);
 
   return (
-    <div className="relative">
+    <div ref={wrapperRef} className="relative">
       <div
         onClick={() => {
           if (!isDisabled) setIsOpen((prev) => !prev);

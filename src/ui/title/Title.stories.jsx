@@ -1,5 +1,6 @@
-import React from "react";
+import React, { Children } from "react";
 import Title from "./Title";
+import { ArgTypes } from "@storybook/addon-docs";
 
 export default {
     title: "Components/UI/Title",
@@ -8,10 +9,31 @@ export default {
     parameters: { 
         layout: "fullscreen" 
     },
+    argTypes: {
+        size: {
+            control: "select",
+            options: ["sm", "md", "lg", "xl", "2xl", "3xl", "4xl"]
+        }
+    }
 };
 
-export const Standard = () => (
-    <Title>
-        Mon titre
-    </Title>
-);
+export const Standard = {
+    args: {
+        children: "My title",
+        size: "3xl"
+    }
+};
+
+export const Small = {
+    args: {
+        children: "My title",
+        size: "xl"
+    }
+};
+
+export const Large = {
+    args: {
+        children: "My title",
+        size: "4xl"
+    }
+};

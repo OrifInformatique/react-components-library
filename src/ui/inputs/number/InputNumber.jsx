@@ -8,6 +8,7 @@ const InputNumber = ({
   label,
   min = -Infinity,
   max = Infinity,
+  step = 1,
   value = null,
   defaultValue = null,
   onChangeFunction = null,
@@ -34,7 +35,7 @@ const InputNumber = ({
     // Normalisation
     const numericValue = Number(rawValue);
 
-    if (isNaN(numericValue)) {
+    if (!Number.isFinite(numericValue)) {
       return;
     }
 
@@ -58,8 +59,9 @@ const InputNumber = ({
         type="number"
         id={id}
         name={name}
-        min={min}
-        max={max}
+        min={Number.isFinite(min) ? min : undefined}
+        max={Number.isFinite(max) ? max : undefined}
+        step={step}
         value={internalValue}
         onChange={handleNumberChange}
         disabled={disabled}
@@ -76,6 +78,7 @@ InputNumber.propTypes = {
   label: PropTypes.string.isRequired,
   min: PropTypes.number,
   max: PropTypes.number,
+  step: PropTypes.number,
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onChangeFunction: PropTypes.func,

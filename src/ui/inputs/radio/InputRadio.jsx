@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useId } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import Label from "../../label/Label";
 
@@ -10,8 +10,6 @@ const InputRadio = ({
   label = "Select an option",
   required = false,
 }) => {
-  const uniqueId = useId();
-  const radioGroupName = `${name}-${uniqueId}`;
 
   const [selectedId, setSelectedId] = useState(
     options.find((o) => o.defaultChecked)?.id || ""
@@ -64,7 +62,7 @@ const InputRadio = ({
               <input
                 type="radio"
                 id={radioId}
-                name={radioGroupName}
+                name={name}
                 checked={selectedId === id}
                 disabled={isDisabled}
                 onChange={() => handleRadioChange(id)}

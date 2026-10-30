@@ -7,32 +7,26 @@ export default {
     tags: ["autodocs"],
     parameters: { 
         layout: "fullscreen" 
-    },
-    argTypes: {
-        size: {
-            control: "select",
-            options: ["sm", "md", "lg", "xl", "2xl", "3xl", "4xl"]
-        }
     }
 };
 
 export const Standard = {
     args: {
-        children: "My title",
-        size: "3xl"
+        children: "My title"
     }
 };
 
-export const Small = {
+export const alignCenter = {
     args: {
         children: "My title",
-        size: "xl"
+        align: "center"
     }
-};
+}
 
-export const Large = {
+export const alignRight = {
     args: {
         children: "My title",
-        size: "4xl"
+        align: "end"
     }
-};
+}
+

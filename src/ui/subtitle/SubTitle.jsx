@@ -2,23 +2,19 @@ import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 
-const SubTitle = ({ children, size = "2xl"}) => {
-    const sizeClasses = {
-        sm: "text-sm",
-        md: "text-md",
-        lg: "text-lg",
-        xl: "text-xl",
-        "2xl": "text-2xl",
-        "3xl": "text-3xl",
-        "4xl": "text-4xl"
+const SubTitle = ({ children, align = "start"}) => {
+    const alignClasses = {
+        "start": "text-start",
+        "center": "text-center",
+        "end": "text-end"
     }
 
-    const sizeClass = sizeClasses[size] || sizeClasses["2xl"];
-    const className = ["font-bold", sizeClass, "md:mb-0 md:mr-10"].join(" ");
+    const alignClass = alignClasses[align] || alignClasses["start"];
+    const className = [alignClass, "text-xl lg:text-2xl  md:mb-0 md:mr-10"].join(" ");
 
     SubTitle.propTypes = {
         children: PropTypes.node.isRequired,
-        size: PropTypes.oneOf(["sm", "md", "lg", "xl", "2xl", "3xl", "4xl"])
+        align: PropTypes.oneOf(["start", "center", "end"])
     };
 
     return (

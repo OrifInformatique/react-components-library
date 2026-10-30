@@ -1,6 +1,5 @@
 import React, { Children } from "react";
 import SubTitle from "./SubTitle";
-import { ArgTypes } from "@storybook/addon-docs";
 
 export default {
     title: "Components/UI/SubTitle",

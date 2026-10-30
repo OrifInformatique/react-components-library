@@ -10,7 +10,7 @@ const Title = ({ children, align = "start" })=> {
     }
 
     const alignClass = alignClasses[align] || alignClasses["start"];
-    const className = [alignClass, "text-2xl md:text-3xl md:mb-0 md:mr-10"].join(" ");
+    const className = [alignClass, "text-2xl md:text-3xl mb-2 md:mr-10"].join(" ");
 
     Title.propTypes = {
         children: PropTypes.node.isRequired,

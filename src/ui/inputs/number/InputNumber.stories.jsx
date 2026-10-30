@@ -46,7 +46,7 @@ export const schoolGrade = {
         max: 6,
         step: 0.1,
         defaultValue: 4.5,
-        require: true
+        required: true
     }
 };
 
@@ -55,7 +55,7 @@ export const Disabled = {
         id: "number-2",
         name: "number-2",
         label: "Quantité :",
-        min: 0,
+        min: 10,
         max: 130,
         disabled: true,
         required: false

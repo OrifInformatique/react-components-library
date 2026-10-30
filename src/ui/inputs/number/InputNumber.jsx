@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import Label from "../../label/Label";
 
@@ -9,7 +9,7 @@ const InputNumber = ({
   min = -Infinity,
   max = Infinity,
   step = 1,
-  value = null,
+  value,
   defaultValue = null,
   onChangeFunction = null,
   disabled = false,
@@ -20,35 +20,59 @@ const InputNumber = ({
     value ?? defaultValue ?? ""
   );
 
+  // Sync with the value prop (controlled mode)
+  useEffect(() => {
+    if (value !== undefined) {
+      setInternalValue(value ?? "");
+    }
+  }, [value]);
+
   if (disabled) required = false;
 
   const handleNumberChange = (event) => {
     const rawValue = event.target.value;
 
-    // Cas vide
+    // Empty case
     if (rawValue === "") {
+      // Partial input ("-", "1e"...): the browser returns "" with badInput
+      if (event.target.validity?.badInput) {
+        return;
+      }
       setInternalValue("");
       onChangeFunction && onChangeFunction(null);
       return;
     }
 
-    // Normalisation
+    // Normalization
     const numericValue = Number(rawValue);
 
     if (!Number.isFinite(numericValue)) {
       return;
     }
 
-    let finalValue = numericValue;
+    // Keep the raw input so typing is not disrupted ("1.", "0.0"...)
+    setInternalValue(rawValue);
+    onChangeFunction && onChangeFunction(numericValue);
+  };
 
-    if (numericValue < min) {
-      finalValue = min;
-    } else if (numericValue > max) {
-      finalValue = max;
+  // Clamp to min / max when the field loses focus
+  const handleNumberBlur = () => {
+    if (internalValue === "") {
+      return;
     }
 
-    setInternalValue(finalValue);
-    onChangeFunction && onChangeFunction(finalValue);
+    const numericValue = Number(internalValue);
+
+    if (!Number.isFinite(numericValue)) {
+      return;
+    }
+
+    const finalValue = Math.min(Math.max(numericValue, min), max);
+
+    if (finalValue !== numericValue) {
+      setInternalValue(finalValue);
+      onChangeFunction && onChangeFunction(finalValue);
+    }
   };
 
   return (
@@ -64,6 +88,7 @@ const InputNumber = ({
         step={step}
         value={internalValue}
         onChange={handleNumberChange}
+        onBlur={handleNumberBlur}
         disabled={disabled}
         required={required}
         placeholder={placeholder}
@@ -78,7 +103,7 @@ InputNumber.propTypes = {
   label: PropTypes.string.isRequired,
   min: PropTypes.number,
   max: PropTypes.number,
-  step: PropTypes.number,
+  step: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf(["any"])]),
   value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   defaultValue: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   onChangeFunction: PropTypes.func,

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useId } from "react";
 import PropTypes from "prop-types";
 import Label from "../../label/Label";
 
@@ -10,6 +10,10 @@ const InputRadio = ({
   label = "Select an option",
   required = false,
 }) => {
+  const uniqueId = useId();
+  const radioGroupName = `${name}-${uniqueId}`;
+  const getRadioId = (id) => `${uniqueId}-${id}`;
+
   const [selectedId, setSelectedId] = useState(
     options.find((o) => o.defaultChecked)?.id || ""
   );
@@ -37,6 +41,7 @@ const InputRadio = ({
       <Label.Title>{label}</Label.Title>
       <div className="flex flex-col gap-2">
         {options.map(({ id, label, disabled = false, labelPosition = "right" }, index) => {
+          const radioId = getRadioId(id);
           const isLeft = labelPosition === "left";
           const isDisabled = disabledAll || disabled;
 
@@ -52,15 +57,15 @@ const InputRadio = ({
                     marginRight: "0.5rem",
                   }}
                 >
-                  <label htmlFor={id} className="cursor-pointer w-full block">
+                  <label htmlFor={radioId} className="cursor-pointer w-full block">
                     <Label.Title unstyled>{label}</Label.Title>
                   </label>
                 </span>
               )}
               <input
                 type="radio"
-                id={id}
-                name={name}
+                id={radioId}
+                name={radioGroupName}
                 checked={selectedId === id}
                 disabled={isDisabled}
                 onChange={() => handleRadioChange(id)}
@@ -69,7 +74,7 @@ const InputRadio = ({
               />
               {!isLeft && (
                 <span ref={(el) => (labelRefs.current[index] = el)} className="text-sm">
-                  <label htmlFor={id} className="cursor-pointer w-full block">
+                  <label htmlFor={radioId} className="cursor-pointer w-full block">
                     <Label.Title unstyled>{label}</Label.Title>
                   </label>
                 </span>

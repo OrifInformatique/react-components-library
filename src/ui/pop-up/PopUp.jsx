@@ -7,7 +7,7 @@ const PopUp = ({ title, description, onClose, children }) => {
     <div className="fixed inset-0 z-50 flex sm:items-center sm:justify-center bg-white sm:bg-black sm:bg-opacity-50 p-4 sm:p-0 overflow-auto">
       <div className="relative w-full sm:max-w-lg bg-white rounded-none sm:rounded-md shadow-none sm:shadow-lg p-6 sm:h-auto">
         {/* Header */}
-        <div className="flex justify-between items-start mb-4">
+        <div className="flex justify-between items-start mb-2">
           <h2 className="text-xl font-semibold text-primary">{title}</h2>
           <button
             type="button"
@@ -20,11 +20,11 @@ const PopUp = ({ title, description, onClose, children }) => {
 
         {/* Description */}
         {description && (
-          <p className="text-sm text-gray-600 mb-4">{description}</p>
+          <p className="text-gray-600 mb-4">{description}</p>
         )}
 
         {/* Contenu */}
-        <div className="flex flex-col sm:flex-row sm:justify-end sm:gap-2 sm:mt-4">
+        <div className="sm:mt-4">
           {children}
         </div>
       </div>

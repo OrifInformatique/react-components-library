@@ -12,7 +12,7 @@ const SingleSelect = ({
   defaultValue = null,
   disabled = false,
   required = false,
-  placeholder = "Select an option...",
+  placeholder,
   onChangeFunction = null,
   errors = [],
   className = null,
@@ -37,7 +37,7 @@ const SingleSelect = ({
         name={name}
         {...(selectedValue !== null
           ? { value: selectedValue }
-          : { defaultValue })}
+          : { defaultValue: defaultValue ?? "" })}
         disabled={isDisabled}
         required={required}
         onChange={handleSingleSelect}
@@ -48,9 +48,11 @@ const SingleSelect = ({
           className
         )}
       >
-        <option value="" disabled hidden>
-          {placeholder}
-        </option>
+        {placeholder && (
+          <option value="" disabled>
+            {placeholder}
+          </option>
+        )}
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

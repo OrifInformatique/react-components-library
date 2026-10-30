@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Children } from "react";
 import SubTitle from "./SubTitle";
 
 export default {
@@ -7,11 +7,25 @@ export default {
     tags: ["autodocs"],
     parameters: { 
         layout: "fullscreen" 
-    },
+    }
 };
 
-export const Standard = () => (
-    <SubTitle>
-        Mon sous-titre
-    </SubTitle>
-);
+export const Standard = {
+    args: {
+        children: "My subtitle"
+    }
+};
+
+export const alignCenter = {
+    args: {
+        children: "My subtitle",
+        align: "center"
+    }
+}
+
+export const alignRight = {
+    args: {
+        children: "My subtitle",
+        align: "end"
+    }
+}

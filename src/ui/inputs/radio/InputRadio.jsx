@@ -12,7 +12,6 @@ const InputRadio = ({
 }) => {
   const uniqueId = useId();
   const radioGroupName = `${name}-${uniqueId}`;
-  const getRadioId = (id) => `${uniqueId}-${id}`;
 
   const [selectedId, setSelectedId] = useState(
     options.find((o) => o.defaultChecked)?.id || ""
@@ -41,7 +40,7 @@ const InputRadio = ({
       <Label.Title>{label}</Label.Title>
       <div className="flex flex-col gap-2">
         {options.map(({ id, label, disabled = false, labelPosition = "right" }, index) => {
-          const radioId = getRadioId(id);
+          const radioId = id;
           const isLeft = labelPosition === "left";
           const isDisabled = disabledAll || disabled;
 

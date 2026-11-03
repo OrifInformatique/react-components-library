@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 
-const SubTitle = ({ children, align = "start"}) => {
+const SubTitle = ({ children, align = "start", className = null }) => {
     const alignClasses = {
         "start": "text-start",
         "center": "text-center",
@@ -10,16 +10,16 @@ const SubTitle = ({ children, align = "start"}) => {
     }
 
     const alignClass = alignClasses[align] || alignClasses["start"];
-    const className = [alignClass, "text-xl md:text-2xl  mb-2 md:mr-10"].join(" ");
 
     return (
-        <p className={className}>{children}</p>
+        <p className={clsx(alignClass, "text-xl md:text-2xl mb-2 md:mr-10", className)}>{children}</p>
     );
 };
 
 SubTitle.propTypes = {
     children: PropTypes.node.isRequired,
-    align: PropTypes.oneOf(["start", "center", "end"])
+    align: PropTypes.oneOf(["start", "center", "end"]),
+    className: PropTypes.string
 };
 
 export default SubTitle;

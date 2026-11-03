@@ -13,28 +13,26 @@ const meta = {
 };
 export default meta;
 
-const HTMLButton = (
-  <>
-    <div className="flex flex-row justify-end gap-2">
-      <Button
-        label="Confirm"
-        onClick={() => console.log("Confirmé cliqué")}
-        variant="primary"
-      />
-      <Button
-        label="Cancel"
-        onClick={() => console.log("Annulé cliqué")}
-        variant="danger"
-      />
-    </div>
-  </>
+const renderButtons = (onCancel = () => console.log("Annulé cliqué")) => (
+  <div className="flex flex-row justify-end gap-2">
+    <Button
+      label="Confirm"
+      onClick={() => console.log("Confirmé cliqué")}
+      variant="primary"
+    />
+    <Button
+      label="Cancel"
+      onClick={onCancel}
+      variant="danger"
+    />
+  </div>
 );
 
 const HTMLexample = (
   <>
     <div className="flex flex-col gap-4">
       <SingleSelect
-        label="Choose a object"
+        label="Choose an object"
         name="object"
         options={[
           { label: "Table", value: "table" },
@@ -52,11 +50,9 @@ const HTMLexample = (
         ]}
       />
     </div>
-    {HTMLButton}
+    {renderButtons()}
   </>
 );
-
-
 
 export const DialogueResponsive = {
   render: (args) => {
@@ -75,9 +71,7 @@ export const DialogueResponsive = {
             description={args.description}
             onClose={() => setOpen(false)}
           >
-
-            {HTMLButton}
-
+            {renderButtons(() => setOpen(false))}
           </PopUp>
         ) : null}
       </>
@@ -94,7 +88,7 @@ export const Default = { // <-- différent de "Example"
     open: true,
     title: "Confirmation",
     description: "Voulez-vous continuer ?",
-    children: HTMLButton
+    children: renderButtons()
   },
 };
 
@@ -109,7 +103,7 @@ export const Closed = {
 export const MultipleChildren = {
   args: {
     open: true,
-    title: "Mutiple children",
+    title: "Multiple children",
     description: "Display multiple components in one popup",
     children: HTMLexample
   },

@@ -1,4 +1,4 @@
-import React, { Children } from "react";
+import React from "react";
 import SubTitle from "./SubTitle";
 
 export default {
@@ -16,14 +16,14 @@ export const Standard = {
     }
 };
 
-export const alignCenter = {
+export const AlignCenter = {
     args: {
         children: "My subtitle",
         align: "center"
     }
 }
 
-export const alignRight = {
+export const AlignEnd = {
     args: {
         children: "My subtitle",
         align: "end"

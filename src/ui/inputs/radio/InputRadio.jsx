@@ -10,7 +10,6 @@ const InputRadio = ({
   label = "Select an option",
   required = false,
 }) => {
-
   const [selectedId, setSelectedId] = useState(
     options.find((o) => o.defaultChecked)?.id || ""
   );
@@ -38,7 +37,6 @@ const InputRadio = ({
       <Label.Title>{label}</Label.Title>
       <div className="flex flex-col gap-2">
         {options.map(({ id, label, disabled = false, labelPosition = "right" }, index) => {
-          const radioId = id;
           const isLeft = labelPosition === "left";
           const isDisabled = disabledAll || disabled;
 
@@ -54,14 +52,14 @@ const InputRadio = ({
                     marginRight: "0.5rem",
                   }}
                 >
-                  <label htmlFor={radioId} className="cursor-pointer w-full block">
+                  <label htmlFor={id} className="cursor-pointer w-full block">
                     <Label.Title unstyled>{label}</Label.Title>
                   </label>
                 </span>
               )}
               <input
                 type="radio"
-                id={radioId}
+                id={id}
                 name={name}
                 checked={selectedId === id}
                 disabled={isDisabled}
@@ -71,7 +69,7 @@ const InputRadio = ({
               />
               {!isLeft && (
                 <span ref={(el) => (labelRefs.current[index] = el)} className="text-sm">
-                  <label htmlFor={radioId} className="cursor-pointer w-full block">
+                  <label htmlFor={id} className="cursor-pointer w-full block">
                     <Label.Title unstyled>{label}</Label.Title>
                   </label>
                 </span>

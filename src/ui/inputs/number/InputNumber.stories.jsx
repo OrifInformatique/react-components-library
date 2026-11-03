@@ -37,7 +37,7 @@ export const LimitedValues = {
     }
 };
 
-export const schoolGrade = {
+export const SchoolGrade = {
     args: {
         id: "school-grade",
         name: "school-grade",
@@ -66,6 +66,7 @@ export const Uncontrolled = {
     args: {
         id: "number-3",
         name: "number-3",
+        label: "Uncontrolled :",
         defaultValue: 42,
         required: true
     }
@@ -75,6 +76,7 @@ export const Controlled = {
     args: {
         id: "number-4",
         name: "number-4",
+        label: "Controlled :",
         value: "",
         required: true,
         onChangeFunction: (number) => alert("The input contains \"" + number + "\".")

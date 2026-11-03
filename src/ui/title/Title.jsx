@@ -12,14 +12,14 @@ const Title = ({ children, align = "start" })=> {
     const alignClass = alignClasses[align] || alignClasses["start"];
     const className = [alignClass, "text-2xl md:text-3xl mb-2 md:mr-10"].join(" ");
 
-    Title.propTypes = {
-        children: PropTypes.node.isRequired,
-        align: PropTypes.oneOf(["start", "center", "end"])
-    };
-
     return (
         <p className={className}>{children}</p>
     );
-}
+};
+
+Title.propTypes = {
+    children: PropTypes.node.isRequired,
+    align: PropTypes.oneOf(["start", "center", "end"])
+};
 
 export default Title;

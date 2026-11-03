@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import PropTypes from "prop-types";
 import clsx from "clsx";
 import Label from "../../label/Label";
@@ -12,11 +12,24 @@ const SingleSelect = ({
   defaultValue = null,
   disabled = false,
   required = false,
-  placeholder = "Select an option...",
+  placeholder,
   onChangeFunction = null,
   errors = [],
   className = null,
 }) => {
+  const selectRef = useRef(null);
+  const lastReportedValue = useRef(null);
+
+  // Report the value actually displayed by the browser on load (and when options change),
+  // even if the user hasn't interacted with the list yet
+  useEffect(() => {
+    const currentValue = selectRef.current?.value;
+    if (!currentValue || currentValue === lastReportedValue.current) return;
+
+    lastReportedValue.current = currentValue;
+    if (onChangeFunction) onChangeFunction(currentValue);
+  }, [options, selectedValue]);
+
   if (!name) {
     console.error("SingleSelect must have a name.");
     return null;
@@ -26,6 +39,7 @@ const SingleSelect = ({
   if (isDisabled) required = false;
 
   const handleSingleSelect = (event) => {
+    lastReportedValue.current = event.target.value;
     if (onChangeFunction) onChangeFunction(event.target.value);
   };
 
@@ -33,11 +47,12 @@ const SingleSelect = ({
     <Label htmlFor={id ?? name} required={required}>
       {label && <Label.Title>{label}</Label.Title>}
       <select
+        ref={selectRef}
         id={id ?? name}
         name={name}
         {...(selectedValue !== null
           ? { value: selectedValue }
-          : { defaultValue })}
+          : { defaultValue: defaultValue ?? "" })}
         disabled={isDisabled}
         required={required}
         onChange={handleSingleSelect}
@@ -48,9 +63,11 @@ const SingleSelect = ({
           className
         )}
       >
-        <option value="" disabled hidden>
-          {placeholder}
-        </option>
+        {placeholder && (
+          <option value="" disabled>
+            {placeholder}
+          </option>
+        )}
         {options.map((option) => (
           <option key={option.value} value={option.value}>
             {option.label}

@@ -7,11 +7,25 @@ export default {
     tags: ["autodocs"],
     parameters: { 
         layout: "fullscreen" 
-    },
+    }
 };
 
-export const Standard = () => (
-    <SubTitle>
-        Mon sous-titre
-    </SubTitle>
-);
+export const Standard = {
+    args: {
+        children: "My subtitle"
+    }
+};
+
+export const AlignCenter = {
+    args: {
+        children: "My subtitle",
+        align: "center"
+    }
+}
+
+export const AlignEnd = {
+    args: {
+        children: "My subtitle",
+        align: "end"
+    }
+}
